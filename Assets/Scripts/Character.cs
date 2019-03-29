@@ -4,25 +4,74 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour
 {
+    /// <summary>
+    /// 角色速度
+    /// </summary>
     [SerializeField]
     protected float speed;
 
-    protected Vector2 direction;
+    /// <summary>
+    /// 初始化角色方向
+    /// </summary>
+    protected Vector2 direction = Vector2.zero;
 
-    // Start is called before the first frame update
-    void Start()
+    protected Vector2 walkDirection = Vector2.zero;
+
+    private Animator myAnimator;
+
+    private Rigidbody2D myRigidbody;
+
+    public bool IsMoving
     {
-        
+        get
+        {
+            return direction != Vector2.zero;
+        }
     }
 
-    // Update is called once per frame
+    // Start is called before the first frame update
+    protected virtual void Start()
+    {
+        myRigidbody = GetComponent<Rigidbody2D>();
+        myAnimator = GetComponent<Animator>();
+    }
+
     protected virtual void Update()
+    {
+        HandleLayers();
+    }
+
+    protected virtual void FixedUpdate()
     {
         Move();
     }
 
     protected void Move()
     {
-        transform.Translate(speed * direction * Time.deltaTime);
+        myRigidbody.velocity = direction.normalized * speed;
+    }
+
+    public void HandleLayers()
+    {
+        if (IsMoving)
+        {
+            activateLayer("WalkLayer");
+            myAnimator.SetFloat("x", direction.x);
+            myAnimator.SetFloat("y", direction.y);
+        }
+        else
+        {
+            activateLayer("IdleLayer");
+        }
+    }
+
+    public void activateLayer(string layerName)
+    {
+        for (int i = 0; i < myAnimator.layerCount; i++)
+        {
+            myAnimator.SetLayerWeight(i, 0);
+        }
+
+        myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName), 1);
     }
 }
