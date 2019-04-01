@@ -29,7 +29,7 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public bool IsAttacking = false;
+    protected bool IsAttacking = false;
 
     protected Coroutine attackRoutine;
 
