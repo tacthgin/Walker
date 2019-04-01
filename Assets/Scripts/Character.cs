@@ -17,7 +17,7 @@ public abstract class Character : MonoBehaviour
 
     protected Vector2 walkDirection = Vector2.zero;
 
-    private Animator myAnimator;
+    protected Animator myAnimator;
 
     private Rigidbody2D myRigidbody;
 
@@ -29,7 +29,10 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
+    public bool IsAttacking = false;
+
+    protected Coroutine attackRoutine;
+
     protected virtual void Start()
     {
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -58,8 +61,12 @@ public abstract class Character : MonoBehaviour
             activateLayer("WalkLayer");
             myAnimator.SetFloat("x", direction.x);
             myAnimator.SetFloat("y", direction.y);
+            StopAttack();
         }
-        else
+        else if (IsAttacking)
+        {
+            activateLayer("AttackLayer");
+        }else
         {
             activateLayer("IdleLayer");
         }
@@ -73,5 +80,17 @@ public abstract class Character : MonoBehaviour
         }
 
         myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName), 1);
+    }
+
+    public void StopAttack()
+    {
+        if (attackRoutine != null)
+        {
+            Debug.Log("attack stop");
+            StopCoroutine(attackRoutine);
+            attackRoutine = null;
+            IsAttacking = false;
+            myAnimator.SetBool("attack", IsAttacking);
+        }
     }
 }

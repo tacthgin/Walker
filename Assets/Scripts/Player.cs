@@ -27,7 +27,6 @@ public class Player : Character
         base.Update();
     }
 
-    // Update is called once per frame
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -65,5 +64,21 @@ public class Player : Character
         {
             health.MyCurrentValue -= 10;
         }
+
+        if (Input.GetKey(KeyCode.J))
+        {
+            if (!IsAttacking && !IsMoving)
+            {
+                attackRoutine = StartCoroutine(Attack());
+            }
+        }
+    }
+
+    private IEnumerator Attack()
+    {
+        IsAttacking = true;
+        myAnimator.SetBool("attack", IsAttacking);
+        yield return new WaitForSeconds(3);
+        StopAttack();
     }
 }
