@@ -86,7 +86,6 @@ public abstract class Character : MonoBehaviour
     {
         if (attackRoutine != null)
         {
-            Debug.Log("attack stop");
             StopCoroutine(attackRoutine);
             attackRoutine = null;
             IsAttacking = false;

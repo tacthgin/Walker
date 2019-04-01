@@ -29,7 +29,6 @@ public class Spell : MonoBehaviour
         Vector2 direction = target.position - transform.position;
         myRigidBody.velocity = direction.normalized * speed;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Debug.Log(angle);
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
     }
 }

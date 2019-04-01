@@ -34,13 +34,12 @@ public class Player : Character
     [SerializeField]
     private Block[] blocks;
 
-    private GameObject MyTarget { get; set; }
+    public Transform MyTarget { get; set; }
 
     protected override void Start()
     {
         health.Initialize(initHealth, initHealth);
         mana.Initialize(initMana, initMana);
-        MyTarget = GameObject.Find("Target");
         base.Start();
     }
 
@@ -95,7 +94,7 @@ public class Player : Character
         if (Input.GetKey(KeyCode.J))
         {
             Block();
-            if (!IsAttacking && !IsMoving && InLineOfSight())
+            if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
             {
                 attackRoutine = StartCoroutine(Attack());
             }
@@ -118,8 +117,8 @@ public class Player : Character
 
     private bool InLineOfSight()
     {
-        Vector2 targetDirection = (MyTarget.transform.position - transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, MyTarget.transform.position), LayerMask.GetMask("Block"));
+        Vector2 targetDirection = (MyTarget.position - transform.position).normalized;
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, MyTarget.position), LayerMask.GetMask("Block"));
         return hit.collider == null;
     }
 
