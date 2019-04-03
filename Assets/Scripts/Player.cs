@@ -27,9 +27,9 @@ public class Player : Character
     private Transform[] exitPoints;
 
     /// <summary>
-    /// 技能的位置点起始索引，2是down
+    /// 技能的位置点起始索引，0是down
     /// </summary>
-    private int exitIndex = 2;
+    private int exitIndex = 0;
 
     [SerializeField]
     private Block[] blocks;
@@ -90,29 +90,28 @@ public class Player : Character
         {
             health.MyCurrentValue -= 10;
         }
-
-        if (Input.GetKey(KeyCode.J))
-        {
-            Block();
-            if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
-            {
-                attackRoutine = StartCoroutine(Attack());
-            }
-        }
     }
 
-    private IEnumerator Attack()
+    private IEnumerator Attack(int spellIndex)
     {
         IsAttacking = true;
         myAnimator.SetBool("attack", IsAttacking);
+
         yield return new WaitForSeconds(1);
-        CastSpell();
+
+        Spell s = Instantiate(spellPrefabs[spellIndex], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<Spell>();
+        s.MyTarget = MyTarget;
+
         StopAttack();
     }
 
-    public void CastSpell()
+    public void CastSpell(int spellIndex)
     {
-        Instantiate(spellPrefabs[0], exitPoints[exitIndex].position, Quaternion.identity);
+        Block();
+        if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
+        {
+            attackRoutine = StartCoroutine(Attack(spellIndex));
+        }
     }
 
     private bool InLineOfSight()

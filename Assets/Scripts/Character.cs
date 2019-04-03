@@ -13,9 +13,7 @@ public abstract class Character : MonoBehaviour
     /// <summary>
     /// 初始化角色方向
     /// </summary>
-    protected Vector2 direction = Vector2.zero;
-
-    protected Vector2 walkDirection = Vector2.zero;
+    protected Vector2 direction;
 
     protected Animator myAnimator;
 
