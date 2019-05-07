@@ -82,12 +82,13 @@ public abstract class Character : MonoBehaviour
 
     public void StopAttack()
     {
+        IsAttacking = false;
+        myAnimator.SetBool("attack", IsAttacking);
+
         if (attackRoutine != null)
         {
             StopCoroutine(attackRoutine);
             attackRoutine = null;
-            IsAttacking = false;
-            myAnimator.SetBool("attack", IsAttacking);
         }
     }
 }

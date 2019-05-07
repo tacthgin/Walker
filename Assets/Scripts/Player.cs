@@ -20,11 +20,13 @@ public class Player : Character
     /// </summary>
     private float initMana = 50;
 
-    [SerializeField]
-    private GameObject[] spellPrefabs;
-
+    /// <summary>
+    /// 法杖发出的位置
+    /// </summary>
     [SerializeField]
     private Transform[] exitPoints;
+
+    private SpellBook spellBook;
 
     /// <summary>
     /// 技能的位置点起始索引，0是down
@@ -38,6 +40,7 @@ public class Player : Character
 
     protected override void Start()
     {
+        spellBook = GetComponent<SpellBook>();
         health.Initialize(initHealth, initHealth);
         mana.Initialize(initMana, initMana);
         base.Start();
@@ -94,12 +97,13 @@ public class Player : Character
 
     private IEnumerator Attack(int spellIndex)
     {
+        Spell newSpell = spellBook.CastSpell(spellIndex);
         IsAttacking = true;
         myAnimator.SetBool("attack", IsAttacking);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(newSpell.MyCastTime);
 
-        Spell s = Instantiate(spellPrefabs[spellIndex], exitPoints[exitIndex].position, Quaternion.identity).GetComponent<Spell>();
+        SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
         s.MyTarget = MyTarget;
 
         StopAttack();
