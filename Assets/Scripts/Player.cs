@@ -134,4 +134,10 @@ public class Player : Character
 
         blocks[exitIndex].Activate();
     }
+
+    public override void StopAttack()
+    {
+        spellBook.StopCasting();
+        base.StopAttack();
+    }
 }
