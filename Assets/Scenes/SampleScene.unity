@@ -1018,9 +1018,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e21d08658aa76e145a1ece16e82a625c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 799893956}
+  initHealth: 100
   speed: 5
   hitBox: {fileID: 0}
-  health: {fileID: 799893956}
   mana: {fileID: 855339925}
   exitPoints:
   - {fileID: 1384310050}
@@ -1588,8 +1589,9 @@ GameObject:
   - component: {fileID: 946331817}
   - component: {fileID: 946331819}
   - component: {fileID: 946331818}
+  - component: {fileID: 946331820}
   m_Layer: 9
-  m_Name: Fill
+  m_Name: Health
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1611,8 +1613,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00000014994, y: 4.6929e-10}
-  m_SizeDelta: {x: 1.6988, y: 0.20641}
+  m_AnchoredPosition: {x: 0.000032257, y: 4.6929e-10}
+  m_SizeDelta: {x: 1.5159, y: 0.20641}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946331818
 MonoBehaviour:
@@ -1627,7 +1629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.18777339, b: 0.122774996, a: 1}
+  m_Color: {r: 0.7264151, g: 0.17443997, b: 0.08566215, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1635,10 +1637,10 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 34b0f765561505c479bab65677e326e0, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -1651,6 +1653,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 946331816}
   m_CullTransparentMesh: 0
+--- !u!114 &946331820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 946331816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15901ba81afe99d468ed98421d3def8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statValue: {fileID: 0}
+  lerpSpeed: 1
 --- !u!1 &1032285851
 GameObject:
   m_ObjectHideFlags: 0
@@ -2197,8 +2213,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -462.46265, y: -262.59784}
-  m_SizeDelta: {x: 1.7635, y: 0.2064}
+  m_AnchoredPosition: {x: -462.528, y: -262.591}
+  m_SizeDelta: {x: 1.5159, y: 0.2064}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1369585701
 MonoBehaviour:
@@ -3100,6 +3116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdee85c9e082a9448beaf86e378ecd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: {fileID: 946331820}
+  initHealth: 25
   speed: 0
   hitBox: {fileID: 1340225178}
   healthGroup: {fileID: 1369585703}

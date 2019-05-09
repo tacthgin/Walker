@@ -7,6 +7,18 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     /// <summary>
+    /// 血条
+    /// </summary>
+    [SerializeField]
+    protected Stat health;
+
+    /// <summary>
+    /// 初始生命
+    /// </summary>
+    [SerializeField]
+    private float initHealth = 100;
+
+    /// <summary>
     /// 角色速度
     /// </summary>
     [SerializeField]
@@ -40,6 +52,8 @@ public abstract class Character : MonoBehaviour
     {
         myRigidbody = GetComponent<Rigidbody2D>();
         myAnimator = GetComponent<Animator>();
+
+        health.Initialize(initHealth, initHealth);
     }
 
     protected virtual void Update()
@@ -99,6 +113,6 @@ public abstract class Character : MonoBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-
+        health.MyCurrentValue -= damage;
     }
 }

@@ -5,15 +5,7 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField]
-    private Stat health;
-
-    [SerializeField]
     private Stat mana;
-
-    /// <summary>
-    /// 初始生命
-    /// </summary>
-    private float initHealth = 100;
 
     /// <summary>
     /// 初始魔法
@@ -41,7 +33,6 @@ public class Player : Character
     protected override void Start()
     {
         spellBook = GetComponent<SpellBook>();
-        health.Initialize(initHealth, initHealth);
         mana.Initialize(initMana, initMana);
         base.Start();
     }
@@ -108,7 +99,7 @@ public class Player : Character
         if (currentTarget != null && InLineOfSight())
         {
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
-            s.MyTarget = currentTarget;
+            s.Initialize(currentTarget, newSpell.MyDamage);
         }
 
         StopAttack();
@@ -125,9 +116,14 @@ public class Player : Character
 
     private bool InLineOfSight()
     {
-        Vector2 targetDirection = (MyTarget.position - transform.position).normalized;
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, MyTarget.position), LayerMask.GetMask("Block"));
-        return hit.collider == null;
+        if (MyTarget != null)
+        {
+            Vector2 targetDirection = (MyTarget.position - transform.position).normalized;
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, targetDirection, Vector2.Distance(transform.position, MyTarget.position), LayerMask.GetMask("Block"));
+            return hit.collider == null;
+        }
+
+        return false;
     }
 
     private void Block()
@@ -143,6 +139,7 @@ public class Player : Character
     public override void StopAttack()
     {
         spellBook.StopCasting();
+
         base.StopAttack();
     }
 }
