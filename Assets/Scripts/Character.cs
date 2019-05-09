@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
 public abstract class Character : MonoBehaviour
 {
     /// <summary>
@@ -30,6 +32,9 @@ public abstract class Character : MonoBehaviour
     protected bool IsAttacking = false;
 
     protected Coroutine attackRoutine;
+
+    [SerializeField]
+    protected Transform hitBox;
 
     protected virtual void Start()
     {
@@ -90,5 +95,10 @@ public abstract class Character : MonoBehaviour
             StopCoroutine(attackRoutine);
             attackRoutine = null;
         }
+    }
+
+    public virtual void TakeDamage(float damage)
+    {
+
     }
 }

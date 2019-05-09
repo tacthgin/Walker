@@ -97,14 +97,19 @@ public class Player : Character
 
     private IEnumerator Attack(int spellIndex)
     {
+        Transform currentTarget = MyTarget;
+
         Spell newSpell = spellBook.CastSpell(spellIndex);
         IsAttacking = true;
         myAnimator.SetBool("attack", IsAttacking);
 
         yield return new WaitForSeconds(newSpell.MyCastTime);
 
-        SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
-        s.MyTarget = MyTarget;
+        if (currentTarget != null && InLineOfSight())
+        {
+            SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
+            s.MyTarget = currentTarget;
+        }
 
         StopAttack();
     }

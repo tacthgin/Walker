@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player;
 
+    private Npc currentTarget;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,12 +29,21 @@ public class GameManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Clickable"));
             if (hit.collider != null)
             {
-                if (hit.collider.tag == "Enemy")
+                if (currentTarget != null)
                 {
-                    player.MyTarget = hit.transform.GetChild(0);
+                    currentTarget.DeSelect();
                 }
+
+                currentTarget = hit.collider.GetComponent<Npc>();
+                player.MyTarget = currentTarget.Select();
             }else
             {
+                if (currentTarget != null)
+                {
+                    currentTarget.DeSelect();
+                }
+
+                currentTarget = null;
                 player.MyTarget = null;
             }
         }
