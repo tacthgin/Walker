@@ -5,7 +5,7 @@ public class SpellScript : MonoBehaviour
     private Rigidbody2D myRigidBody;
 
     [SerializeField]
-    private float speed;
+    private float speed = 0;
 
     private int damage;
 

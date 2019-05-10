@@ -5,25 +5,25 @@ using UnityEngine;
 public class Spell
 {
     [SerializeField]
-    private string name;
+    private string name = "";
 
     [SerializeField]
-    private int damage;
+    private int damage = 0;
 
     [SerializeField]
-    private Sprite icon;
+    private Sprite icon = null;
 
     [SerializeField]
-    private float speed;
+    private float speed = 0;
 
     [SerializeField]
-    private float castTime;
+    private float castTime = 0;
 
     [SerializeField]
-    private GameObject spellPrefab;
+    private GameObject spellPrefab = null;
 
     [SerializeField]
-    private Color barColor;
+    private Color barColor = Color.white;
 
     public string MyName { get => name; }
 

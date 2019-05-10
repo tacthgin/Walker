@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    private Player player;
+    private Player player = null;
 
     private Npc currentTarget;
 

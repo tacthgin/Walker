@@ -5,7 +5,7 @@ using UnityEngine;
 public class Block
 {
     [SerializeField]
-    private GameObject first, second;
+    private GameObject first = null, second = null;
 
     public void Deactivate()
     {

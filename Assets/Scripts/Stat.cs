@@ -8,16 +8,16 @@ public class Stat : MonoBehaviour
     private Image content;
 
     [SerializeField]
-    private Text statValue;
+    private Text statValue = null;
 
     [SerializeField]
-    private float lerpSpeed;
+    private float lerpSpeed = 0;
 
-    private float currentFill;
+    private float currentFill = 0;
 
     public float MyMaxValue { get; set; }
 
-    private float currentValue;
+    private float currentValue = 0;
 
     public float MyCurrentValue
     {

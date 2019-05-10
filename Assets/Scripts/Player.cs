@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player : Character
 {
     [SerializeField]
-    private Stat mana;
+    private Stat mana = null;
 
     /// <summary>
     /// 初始魔法
@@ -26,7 +26,7 @@ public class Player : Character
     private int exitIndex = 0;
 
     [SerializeField]
-    private Block[] blocks;
+    private Block[] blocks = null;
 
     public Transform MyTarget { get; set; }
 

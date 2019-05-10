@@ -5,26 +5,26 @@ using UnityEngine.UI;
 public class SpellBook : MonoBehaviour
 {
     [SerializeField]
-    private Spell[] spells;
+    private Spell[] spells = null;
 
     [SerializeField]
-    private Image castingBar;
+    private Image castingBar = null;
 
     [SerializeField]
-    private Text spellName;
+    private Text spellName = null;
 
     [SerializeField]
-    private Image icon;
+    private Image icon = null;
 
     [SerializeField]
-    private Text castTime;
+    private Text castTime = null;
 
     [SerializeField]
-    private CanvasGroup canvasGroup;
+    private CanvasGroup canvasGroup = null;
 
-    private Coroutine spellRoutine;
+    private Coroutine spellRoutine = null;
 
-    private Coroutine fadeRoutine;
+    private Coroutine fadeRoutine = null;
 
     // Start is called before the first frame update
     void Start()
