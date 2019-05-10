@@ -12,6 +12,11 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     protected Stat health;
 
+    public Stat MyHealth
+    {
+        get { return health; }
+    }
+
     /// <summary>
     /// 初始生命
     /// </summary>

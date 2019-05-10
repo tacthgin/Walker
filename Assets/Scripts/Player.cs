@@ -16,9 +16,9 @@ public class Player : Character
     /// 法杖发出的位置
     /// </summary>
     [SerializeField]
-    private Transform[] exitPoints;
+    private Transform[] exitPoints = null;
 
-    private SpellBook spellBook;
+    private SpellBook spellBook = null;
 
     /// <summary>
     /// 技能的位置点起始索引，0是down

@@ -18,4 +18,11 @@ public class Enemy : Npc
         healthGroup.alpha = 0;
         base.DeSelect();
     }
+
+    public override void TakeDamage(float damage)
+    {
+        base.TakeDamage(damage);
+
+        onHealthChanged(health.MyCurrentValue);
+    }
 }
