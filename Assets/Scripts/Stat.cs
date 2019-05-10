@@ -55,15 +55,27 @@ public class Stat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleBar();
+    }
+
+    public void Initialize(float currentValue, float maxValue)
+    {
+        if (content == null)
+        {
+            content = GetComponent<Image>();
+        }
+
+        MyMaxValue = maxValue;
+        MyCurrentValue = currentValue;
+        content.fillAmount = currentFill;
+    }
+
+    private void HandleBar()
+    {
         if (content.fillAmount != currentFill)
         {
             content.fillAmount = Mathf.Lerp(content.fillAmount, currentFill, Time.deltaTime * lerpSpeed);
         }
     }
 
-    public void Initialize(float currentValue, float maxValue)
-    {
-        MyMaxValue = maxValue;
-        MyCurrentValue = currentValue;
-    }
 }
