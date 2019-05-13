@@ -165,11 +165,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   map: {fileID: 1746178655}
   mapData:
-  - {fileID: 2800000, guid: 44aa14dbd77c8084a90099aa2550dafd, type: 3}
+  - {fileID: 2800000, guid: 786d3994303cd8c409649f4a9d7066e2, type: 3}
   mapElements:
   - tileTag: Grass1
     color: {r: 0.12941177, g: 0.85490197, b: 0.27450982, a: 1}
     elementPrefab: {fileID: 9135925821440386978, guid: 634de9863d5830b41972358d4265e59f,
+      type: 3}
+  - tileTag: Sand
+    color: {r: 0.81960785, g: 0.93333334, b: 0.07450981, a: 1}
+    elementPrefab: {fileID: 205799337456181934, guid: a604f05d0690f2b418295adf910db773,
       type: 3}
   defaultTile: {fileID: 21300000, guid: 2c7feaf0b54477f4d97ad40a15085c33, type: 3}
 --- !u!1 &130901074
@@ -1125,7 +1129,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 200
   m_Sprite: {fileID: 21300000, guid: cde8ce0c1cb166b4a9aad89a158f458a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
