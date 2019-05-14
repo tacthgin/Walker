@@ -4,7 +4,7 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField]
-    private Transform map;
+    private Transform map = null;
 
     [SerializeField]
     private Texture2D[] mapData = null;
@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     private MapElement[] mapElements = null;
 
     [SerializeField]
-    private Sprite defaultTile;
+    private Sprite defaultTile = null;
 
     private Vector3 WorldStartPos
     {
@@ -75,13 +75,13 @@ public class LevelManager : MonoBehaviour
 public class MapElement
 {
     [SerializeField]
-    private string tileTag;
+    private string tileTag = "";
 
     [SerializeField]
-    private Color color;
+    private Color color = Color.white;
 
     [SerializeField]
-    private GameObject elementPrefab;
+    private GameObject elementPrefab = null;
 
     public string MyTileTag { get => tileTag; }
 
