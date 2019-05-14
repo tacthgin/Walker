@@ -11,6 +11,10 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
         private set;
     }
 
+    private Color defaultColor = Color.white;
+
+    private Color fadeColor = Color.white;
+
     public int CompareTo(Obstacle other)
     {
         if (MySpriteRender.sortingOrder > other.MySpriteRender.sortingOrder)
@@ -27,11 +31,20 @@ public class Obstacle : MonoBehaviour, IComparable<Obstacle>
     void Start()
     {
         MySpriteRender = GetComponent<SpriteRenderer>();
+
+        defaultColor = MySpriteRender.color;
+
+        fadeColor = defaultColor;
+        fadeColor.a = 0.7f;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void FadeOut()
     {
-        
+        MySpriteRender.color = fadeColor;
+    }
+
+    public void FadeIn()
+    {
+        MySpriteRender.color = defaultColor;
     }
 }
