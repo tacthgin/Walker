@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class LevelManager : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField]
     private Sprite defaultTile = null;
+
+    [SerializeField]
+    private SpriteAtlas warterAtlas;
 
     private Vector3 WorldStartPos
     {
@@ -75,7 +79,7 @@ public class LevelManager : MonoBehaviour
 public class MapElement
 {
     [SerializeField]
-    private string tileTag = "";
+    private string tileTag = string.Empty;
 
     [SerializeField]
     private Color color = Color.white;
