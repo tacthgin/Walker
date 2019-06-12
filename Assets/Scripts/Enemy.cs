@@ -7,6 +7,16 @@ public class Enemy : Npc
     [SerializeField]
     private CanvasGroup healthGroup = null;
 
+    private Transform target;
+
+    public Transform Target { set => target = value; }
+
+    protected override void Update()
+    {
+        FollowTarget();
+        base.Update();
+    }
+
     public override Transform Select()
     {
         healthGroup.alpha = 1;
@@ -24,5 +34,13 @@ public class Enemy : Npc
         base.TakeDamage(damage);
 
         onHealthChanged(health.MyCurrentValue);
+    }
+
+    private void FollowTarget()
+    {
+        if (target != null)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        }
     }
 }
