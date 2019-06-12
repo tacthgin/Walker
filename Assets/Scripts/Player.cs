@@ -108,7 +108,7 @@ public class Player : Character
 
         Spell newSpell = spellBook.CastSpell(spellIndex);
         IsAttacking = true;
-        myAnimator.SetBool("attack", IsAttacking);
+        MyAnimator.SetBool("attack", IsAttacking);
 
         yield return new WaitForSeconds(newSpell.MyCastTime);
 
@@ -157,7 +157,7 @@ public class Player : Character
         spellBook.StopCasting();
 
         IsAttacking = false;
-        myAnimator.SetBool("attack", IsAttacking);
+        MyAnimator.SetBool("attack", IsAttacking);
 
         if (attackRoutine != null)
         {
