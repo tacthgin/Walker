@@ -27,12 +27,12 @@ public abstract class Character : MonoBehaviour
     /// 角色速度
     /// </summary>
     [SerializeField]
-    protected float speed;
+    private float speed;
 
     /// <summary>
     /// 初始化角色方向
     /// </summary>
-    protected Vector2 direction;
+    private Vector2 direction;
 
     protected Animator myAnimator;
 
@@ -42,9 +42,13 @@ public abstract class Character : MonoBehaviour
     {
         get
         {
-            return direction != Vector2.zero;
+            return Direction != Vector2.zero;
         }
     }
+
+    public Vector2 Direction { get => direction; set => direction = value; }
+
+    public float Speed { get => speed; set => speed = value; }
 
     protected bool IsAttacking = false;
 
@@ -73,7 +77,7 @@ public abstract class Character : MonoBehaviour
 
     protected void Move()
     {
-        myRigidbody.velocity = direction.normalized * speed;
+        myRigidbody.velocity = Direction.normalized * Speed;
     }
 
     public void HandleLayers()
@@ -81,8 +85,8 @@ public abstract class Character : MonoBehaviour
         if (IsMoving)
         {
             activateLayer("WalkLayer");
-            myAnimator.SetFloat("x", direction.x);
-            myAnimator.SetFloat("y", direction.y);
+            myAnimator.SetFloat("x", Direction.x);
+            myAnimator.SetFloat("y", Direction.y);
             StopAttack();
         }
         else if (IsAttacking)

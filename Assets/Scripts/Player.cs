@@ -55,29 +55,29 @@ public class Player : Character
 
     private void GetInput()
     {
-        direction = Vector2.zero;
+        Direction = Vector2.zero;
         if (Input.GetKey(KeyCode.W))
         {
             exitIndex = 3;
-            direction += Vector2.up;
+            Direction += Vector2.up;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
             exitIndex = 0;
-            direction += Vector2.down;
+            Direction += Vector2.down;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
             exitIndex = 1;
-            direction += Vector2.left;
+            Direction += Vector2.left;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
             exitIndex = 2;
-            direction += Vector2.right;
+            Direction += Vector2.right;
         }
 
         if (Input.GetKeyDown(KeyCode.H))
