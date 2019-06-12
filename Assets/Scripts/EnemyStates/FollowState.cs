@@ -12,7 +12,7 @@ public class FollowState : IState
 
     public void Exit()
     {
-        
+        parent.Direction = Vector2.zero;
     }
 
     public void Update()
@@ -21,9 +21,14 @@ public class FollowState : IState
         {
             parent.Direction = (parent.Target.transform.position - parent.transform.position).normalized;
             parent.transform.position = Vector2.MoveTowards(parent.transform.position, parent.Target.position, parent.Speed * Time.deltaTime);
+
+            float distance = Vector2.Distance(parent.Target.position, parent.transform.position);
+            if (distance <= parent.MyAttackRange)
+            {
+                parent.ChangeState(new AttackState());
+            }
         }else
         {
-            parent.Direction = Vector2.zero;
             parent.ChangeState(new IdleState());
         }
     }

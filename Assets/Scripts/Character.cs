@@ -87,7 +87,6 @@ public abstract class Character : MonoBehaviour
             activateLayer("WalkLayer");
             myAnimator.SetFloat("x", Direction.x);
             myAnimator.SetFloat("y", Direction.y);
-            StopAttack();
         }
         else if (IsAttacking)
         {
@@ -106,18 +105,6 @@ public abstract class Character : MonoBehaviour
         }
 
         myAnimator.SetLayerWeight(myAnimator.GetLayerIndex(layerName), 1);
-    }
-
-    public virtual void StopAttack()
-    {
-        IsAttacking = false;
-        myAnimator.SetBool("attack", IsAttacking);
-
-        if (attackRoutine != null)
-        {
-            StopCoroutine(attackRoutine);
-            attackRoutine = null;
-        }
     }
 
     public virtual void TakeDamage(float damage)

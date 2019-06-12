@@ -9,12 +9,15 @@ public class Enemy : Npc
 
     private IState currentState = null;
 
+    public float MyAttackRange { get; set; }
+
     private Transform target;
 
     public Transform Target { get => target; set => target = value; }
 
     protected void Awake()
     {
+        MyAttackRange = 1;
         ChangeState(new IdleState());
     }
 

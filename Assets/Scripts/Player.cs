@@ -89,6 +89,11 @@ public class Player : Character
         {
             health.MyCurrentValue -= 10;
         }
+
+        if (IsMoving)
+        {
+            StopAttack();
+        }
     }
 
     public void SetLimits(Vector3 min, Vector3 max)
@@ -147,10 +152,17 @@ public class Player : Character
         blocks[exitIndex].Activate();
     }
 
-    public override void StopAttack()
+    public void StopAttack()
     {
         spellBook.StopCasting();
 
-        base.StopAttack();
+        IsAttacking = false;
+        myAnimator.SetBool("attack", IsAttacking);
+
+        if (attackRoutine != null)
+        {
+            StopCoroutine(attackRoutine);
+            attackRoutine = null;
+        }
     }
 }
