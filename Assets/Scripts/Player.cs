@@ -28,6 +28,8 @@ public class Player : Character
     [SerializeField]
     private Block[] blocks = null;
 
+    private Vector3 min, max;
+
     public Transform MyTarget { get; set; }
 
     protected override void Start()
@@ -40,6 +42,9 @@ public class Player : Character
     protected override void Update()
     {
         GetInput();
+
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x, min.x, max.x), Mathf.Clamp(transform.position.y, min.y, max.y), transform.position.z);
+
         base.Update();
     }
 
@@ -84,6 +89,12 @@ public class Player : Character
         {
             health.MyCurrentValue -= 10;
         }
+    }
+
+    public void SetLimits(Vector3 min, Vector3 max)
+    {
+        this.min = min;
+        this.max = max;
     }
 
     private IEnumerator Attack(int spellIndex)

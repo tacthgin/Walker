@@ -12,19 +12,23 @@ public class CameraFollow : MonoBehaviour
     [SerializeField]
     private Tilemap tilemap;
 
+    private Player player;
+
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
-
+        player = target.GetComponent<Player>();
+        
         Vector3 minTile = tilemap.CellToWorld(tilemap.cellBounds.min);
         Vector3 maxTile = tilemap.CellToWorld(tilemap.cellBounds.max);
 
         SetLimits(minTile, maxTile);
+        player.SetLimits(minTile, maxTile);
     }
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(Mathf.Clamp());
+        transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), -10);
     }
 
     private void SetLimits(Vector3 minTile, Vector3 maxTile)
