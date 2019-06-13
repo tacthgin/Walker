@@ -30,8 +30,6 @@ public class Player : Character
 
     private Vector3 min, max;
 
-    public Transform MyTarget { get; set; }
-
     protected override void Start()
     {
         spellBook = GetComponent<SpellBook>();
