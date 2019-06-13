@@ -13,10 +13,6 @@ public class Enemy : Npc
 
     public float MyAttackTime { get; set; }
 
-    private Transform target;
-
-    public Transform Target { get => target; set => target = value; }
-
     protected void Awake()
     {
         MyAttackRange = 1;
@@ -49,9 +45,9 @@ public class Enemy : Npc
         base.DeSelect();
     }
 
-    public override void TakeDamage(float damage)
+    public override void TakeDamage(float damage, Transform source)
     {
-        base.TakeDamage(damage);
+        base.TakeDamage(damage, source);
 
         onHealthChanged(health.MyCurrentValue);
     }

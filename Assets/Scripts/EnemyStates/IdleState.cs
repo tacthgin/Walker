@@ -17,7 +17,7 @@ public class IdleState : IState
     public void Update()
     {
         //如果玩家靠近，切到跟随状态
-        if (parent.Target != null)
+        if (parent.MyTarget != null)
         {
             parent.ChangeState(new FollowState());
         }

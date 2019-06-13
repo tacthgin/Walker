@@ -115,7 +115,7 @@ public class Player : Character
         if (currentTarget != null && InLineOfSight())
         {
             SpellScript s = Instantiate(newSpell.MySpellPrefab, exitPoints[exitIndex].position, Quaternion.identity).GetComponent<SpellScript>();
-            s.Initialize(currentTarget, newSpell.MyDamage);
+            s.Initialize(currentTarget, newSpell.MyDamage, transform);
         }
 
         StopAttack();
@@ -124,7 +124,7 @@ public class Player : Character
     public void CastSpell(int spellIndex)
     {
         Block();
-        if (MyTarget != null && !IsAttacking && !IsMoving && InLineOfSight())
+        if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving && InLineOfSight())
         {
             attackRoutine = StartCoroutine(Attack(spellIndex));
         }

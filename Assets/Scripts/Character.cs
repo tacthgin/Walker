@@ -55,6 +55,8 @@ public abstract class Character : MonoBehaviour
         }
     }
 
+    public Transform MyTarget { get; set; }
+
     protected Coroutine attackRoutine;
 
     [SerializeField]
@@ -117,8 +119,13 @@ public abstract class Character : MonoBehaviour
         MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName), 1);
     }
 
-    public virtual void TakeDamage(float damage)
+    public virtual void TakeDamage(float damage, Transform source)
     {
+        if (MyTarget == null)
+        {
+            MyTarget = source;
+        }
+
         health.MyCurrentValue -= damage;
 
         if (health.MyCurrentValue <= 0)
