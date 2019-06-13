@@ -25,11 +25,15 @@ public class Enemy : Npc
 
     protected override void Update()
     {
-        if (!IsAttacking)
+        if (IsAlive)
         {
-            MyAttackTime += Time.deltaTime;
+            if (!IsAttacking)
+            {
+                MyAttackTime += Time.deltaTime;
+            }
+            currentState.Update();
         }
-        currentState.Update();
+
         base.Update();
     }
 

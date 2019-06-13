@@ -29,11 +29,6 @@ public abstract class Character : MonoBehaviour
     [SerializeField]
     private float speed;
 
-    /// <summary>
-    /// 初始化角色方向
-    /// </summary>
-    private Vector2 direction;
-
     public Animator MyAnimator { get; set; }
 
     private Rigidbody2D myRigidbody;
@@ -46,11 +41,19 @@ public abstract class Character : MonoBehaviour
         }
     }
 
-    public Vector2 Direction { get => direction; set => direction = value; }
+    public Vector2 Direction { get; set; }
 
     public float Speed { get => speed; set => speed = value; }
 
     public bool IsAttacking { get; set; }
+
+    public bool IsAlive
+    {
+        get
+        {
+            return MyHealth.MyCurrentValue > 0;
+        }
+    }
 
     protected Coroutine attackRoutine;
 
@@ -82,18 +85,25 @@ public abstract class Character : MonoBehaviour
 
     public void HandleLayers()
     {
-        if (IsMoving)
+        if (IsAlive)
         {
-            activateLayer("WalkLayer");
-            MyAnimator.SetFloat("x", Direction.x);
-            MyAnimator.SetFloat("y", Direction.y);
-        }
-        else if (IsAttacking)
-        {
-            activateLayer("AttackLayer");
+            if (IsMoving)
+            {
+                activateLayer("WalkLayer");
+                MyAnimator.SetFloat("x", Direction.x);
+                MyAnimator.SetFloat("y", Direction.y);
+            }
+            else if (IsAttacking)
+            {
+                activateLayer("AttackLayer");
+            }
+            else
+            {
+                activateLayer("IdleLayer");
+            }
         }else
         {
-            activateLayer("IdleLayer");
+            activateLayer("DeathLayer");
         }
     }
 
@@ -113,6 +123,8 @@ public abstract class Character : MonoBehaviour
 
         if (health.MyCurrentValue <= 0)
         {
+            Direction = Vector2.zero;
+            myRigidbody.velocity = Direction;
             //死掉
             MyAnimator.SetTrigger("die");
         }
