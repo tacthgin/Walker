@@ -18,6 +18,8 @@ public class Enemy : Npc
 
     public float MyAggroRange { get; set; }
 
+    public Vector3 MyStartPosition { get; set; }
+
 
     public bool InRange
     {
@@ -29,6 +31,7 @@ public class Enemy : Npc
 
     protected void Awake()
     {
+        MyStartPosition = transform.position;
         MyAggroRange = initAggroRange;
         MyAttackRange = 1;
         ChangeState(new IdleState());
@@ -62,10 +65,13 @@ public class Enemy : Npc
 
     public override void TakeDamage(float damage, Transform source)
     {
-        setTarget(source);
-        base.TakeDamage(damage, source);
+        if (!(currentState is EvadeState))
+        {
+            setTarget(source);
+            base.TakeDamage(damage, source);
 
-        onHealthChanged(health.MyCurrentValue);
+            onHealthChanged(health.MyCurrentValue);
+        }
     }
 
     public void ChangeState(IState newState)
@@ -82,7 +88,7 @@ public class Enemy : Npc
 
     public void setTarget(Transform target)
     {
-        if (MyTarget == null)
+        if (MyTarget == null && !(currentState is EvadeState))
         {
             float distance = Vector2.Distance(transform.position, target.position);
             MyAggroRange = initAggroRange;
