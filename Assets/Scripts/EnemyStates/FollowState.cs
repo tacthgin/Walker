@@ -27,7 +27,9 @@ public class FollowState : IState
             {
                 parent.ChangeState(new AttackState());
             }
-        }else
+        }
+
+        if (!parent.InRange)
         {
             parent.ChangeState(new IdleState());
         }

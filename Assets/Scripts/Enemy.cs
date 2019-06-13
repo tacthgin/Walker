@@ -13,8 +13,23 @@ public class Enemy : Npc
 
     public float MyAttackTime { get; set; }
 
+    [SerializeField]
+    private float initAggroRange;
+
+    public float MyAggroRange { get; set; }
+
+
+    public bool InRange
+    {
+        get
+        {
+            return Vector2.Distance(transform.position, MyTarget.position) <= MyAggroRange;
+        }
+    }
+
     protected void Awake()
     {
+        MyAggroRange = initAggroRange;
         MyAttackRange = 1;
         ChangeState(new IdleState());
     }
@@ -47,6 +62,7 @@ public class Enemy : Npc
 
     public override void TakeDamage(float damage, Transform source)
     {
+        setTarget(source);
         base.TakeDamage(damage, source);
 
         onHealthChanged(health.MyCurrentValue);
@@ -62,5 +78,24 @@ public class Enemy : Npc
         currentState = newState;
 
         currentState.Enter(this);
+    }
+
+    public void setTarget(Transform target)
+    {
+        if (MyTarget == null)
+        {
+            float distance = Vector2.Distance(transform.position, target.position);
+            MyAggroRange = initAggroRange;
+            MyAggroRange += distance;
+            MyTarget = target;
+        }
+    }
+
+    public void Reset()
+    {
+        MyTarget = null;
+        MyAggroRange = initAggroRange;
+        MyHealth.MyCurrentValue = MyHealth.MyMaxValue;
+        onHealthChanged(health.MyCurrentValue);
     }
 }
