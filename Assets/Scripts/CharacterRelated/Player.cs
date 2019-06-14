@@ -4,6 +4,21 @@ using UnityEngine;
 
 public class Player : Character
 {
+    private static Player instance;
+
+    public static Player MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Player>();
+            }
+
+            return instance;
+        }
+    }
+
     [SerializeField]
     private Stat mana = null;
 
@@ -54,43 +69,41 @@ public class Player : Character
     private void GetInput()
     {
         Direction = Vector2.zero;
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["UP"]))
         {
             exitIndex = 3;
             Direction += Vector2.up;
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["DOWN"]))
         {
             exitIndex = 0;
             Direction += Vector2.down;
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["LEFT"]))
         {
             exitIndex = 1;
             Direction += Vector2.left;
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeybindManager.MyInstance.Keybinds["RIGHT"]))
         {
             exitIndex = 2;
             Direction += Vector2.right;
         }
 
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            health.MyCurrentValue += 10;
-        }
-
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            health.MyCurrentValue -= 10;
-        }
-
         if (IsMoving)
         {
             StopAttack();
+        }
+
+        foreach(string action in KeybindManager.MyInstance.ActionBinds.Keys)
+        {
+            if (Input.GetKeyDown(KeybindManager.MyInstance.ActionBinds[action]))
+            {
+                UIManager.MyInstance.ClickActionButton(action);
+            }
         }
     }
 
@@ -100,11 +113,11 @@ public class Player : Character
         this.max = max;
     }
 
-    private IEnumerator Attack(int spellIndex)
+    private IEnumerator Attack(string spellName)
     {
         Transform currentTarget = MyTarget;
 
-        Spell newSpell = spellBook.CastSpell(spellIndex);
+        Spell newSpell = spellBook.CastSpell(spellName);
         IsAttacking = true;
         MyAnimator.SetBool("attack", IsAttacking);
 
@@ -119,12 +132,12 @@ public class Player : Character
         StopAttack();
     }
 
-    public void CastSpell(int spellIndex)
+    public void CastSpell(string spellName)
     {
         Block();
         if (MyTarget != null && MyTarget.GetComponentInParent<Character>().IsAlive && !IsAttacking && !IsMoving && InLineOfSight())
         {
-            attackRoutine = StartCoroutine(Attack(spellIndex));
+            attackRoutine = StartCoroutine(Attack(spellName));
         }
     }
 

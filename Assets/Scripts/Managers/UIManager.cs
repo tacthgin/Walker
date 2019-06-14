@@ -20,9 +20,7 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField]
-    private Button[] actionButtons = null;
-
-    private KeyCode action1, action2, action3;
+    private ActionButton[] actionButtons = null;
 
     [SerializeField]
     private GameObject targetFrame = null;
@@ -44,40 +42,20 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        action1 = KeyCode.Alpha1;
-        action2 = KeyCode.Alpha2;
-        action3 = KeyCode.Alpha3;
-
         healthStat = targetFrame.GetComponentInChildren<Stat>();
+
+        SetUseable(actionButtons[0], SpellBook.MyInstance.GetSpell("Fireball"));
+        SetUseable(actionButtons[1], SpellBook.MyInstance.GetSpell("Frostbolt"));
+        SetUseable(actionButtons[2], SpellBook.MyInstance.GetSpell("Thunderbolt"));
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(action1))
-        {
-            ActionButtonOnClick(0);
-        }
-
-        if (Input.GetKeyDown(action2))
-        {
-            ActionButtonOnClick(1);
-        }
-
-        if (Input.GetKeyDown(action3))
-        {
-            ActionButtonOnClick(2);
-        }
-
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             OpenCloseMenu();
         }
-    }
-
-    private void ActionButtonOnClick(int btnIndex)
-    {
-        actionButtons[btnIndex].onClick.Invoke();
     }
 
     public void showTargetFrame(Npc target)
@@ -114,6 +92,18 @@ public class UIManager : MonoBehaviour
     {
         Text tmp = Array.Find(keybindButtons, x => x.name == key).GetComponentInChildren<Text>();
         tmp.text = code.ToString();
+    }
+
+    public void ClickActionButton(string buttonName)
+    {
+        Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
+    }
+
+    public void SetUseable(ActionButton btn, IUseable useable)
+    {
+        btn.MyButton.image.sprite = useable.MyIcon;
+        btn.MyButton.image.color = Color.white;
+        btn.MyUseable = useable;
     }
 }
 

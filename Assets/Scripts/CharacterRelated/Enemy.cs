@@ -14,7 +14,7 @@ public class Enemy : Npc
     public float MyAttackTime { get; set; }
 
     [SerializeField]
-    private float initAggroRange;
+    private float initAggroRange = 0;
 
     public float MyAggroRange { get; set; }
 
