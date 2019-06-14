@@ -8,6 +8,11 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
 
     public IUseable MyUseable { get; set; }
 
+    [SerializeField]
+    private Image icon;
+
+    public Image MyIcon { get => icon; set => icon = value; }
+
     // Start is called before the first frame update
     void Start()
     {
