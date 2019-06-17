@@ -33,8 +33,6 @@ public class Player : Character
     [SerializeField]
     private Transform[] exitPoints = null;
 
-    private SpellBook spellBook = null;
-
     /// <summary>
     /// 技能的位置点起始索引，0是down
     /// </summary>
@@ -47,7 +45,6 @@ public class Player : Character
 
     protected override void Start()
     {
-        spellBook = GetComponent<SpellBook>();
         mana.Initialize(initMana, initMana);
         base.Start();
     }
@@ -117,7 +114,7 @@ public class Player : Character
     {
         Transform currentTarget = MyTarget;
 
-        Spell newSpell = spellBook.CastSpell(spellName);
+        Spell newSpell = SpellBook.MyInstance.CastSpell(spellName);
         IsAttacking = true;
         MyAnimator.SetBool("attack", IsAttacking);
 
@@ -165,7 +162,7 @@ public class Player : Character
 
     public void StopAttack()
     {
-        spellBook.StopCasting();
+        SpellBook.MyInstance.StopCasting();
 
         IsAttacking = false;
         MyAnimator.SetBool("attack", IsAttacking);
