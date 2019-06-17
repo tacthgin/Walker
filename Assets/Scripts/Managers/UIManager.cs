@@ -46,10 +46,6 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         healthStat = targetFrame.GetComponentInChildren<Stat>();
-
-        SetUseable(actionButtons[0], SpellBook.MyInstance.GetSpell("Fireball"));
-        SetUseable(actionButtons[1], SpellBook.MyInstance.GetSpell("Frostbolt"));
-        SetUseable(actionButtons[2], SpellBook.MyInstance.GetSpell("Thunderbolt"));
     }
 
     // Update is called once per frame
@@ -93,7 +89,6 @@ public class UIManager : MonoBehaviour
     {
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
         canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
-        Time.timeScale = Time.timeScale > 0 ? 0 : 1;
     }
 
     public void UpdateKeyText(string key, KeyCode code)
@@ -105,13 +100,6 @@ public class UIManager : MonoBehaviour
     public void ClickActionButton(string buttonName)
     {
         Array.Find(actionButtons, x => x.gameObject.name == buttonName).MyButton.onClick.Invoke();
-    }
-
-    public void SetUseable(ActionButton btn, IUseable useable)
-    {
-        btn.MyIcon.sprite = useable.MyIcon;
-        btn.MyIcon.color = Color.white;
-        btn.MyUseable = useable;
     }
 }
 
