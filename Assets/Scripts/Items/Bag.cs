@@ -19,8 +19,13 @@ public class Bag : Item, IUseable
 
     public void Use()
     {
-        MyBagScript = Instantiate(bagPrefab, InventotyScript.MyInstance.transform).GetComponent<BagScript>();
-        MyBagScript.AddSlots(Slots);
+        if (InventotyScript.MyInstance.canAddBag)
+        {
+            MyBagScript = Instantiate(bagPrefab, InventotyScript.MyInstance.transform).GetComponent<BagScript>();
+            MyBagScript.AddSlots(Slots);
+
+            InventotyScript.MyInstance.AddBag(this);
+        }
     }
 
     // Start is called before the first frame update

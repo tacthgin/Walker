@@ -10,17 +10,18 @@ public class BagButton : MonoBehaviour
     [SerializeField]
     private Sprite full, empty;
 
-    public Bag Bag {
+    public Bag MyBag {
         get => bag;
-        set
-        {
+        set {
             if (value != null)
             {
                 GetComponent<Image>().sprite = full;
-            }else
+            }
+            else
             {
                 GetComponent<Image>().sprite = empty;
             }
+            bag = value;
         }
     }
 
