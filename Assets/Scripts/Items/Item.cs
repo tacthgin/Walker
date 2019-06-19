@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : ScriptableObject
+public abstract class Item : ScriptableObject
 {
     [SerializeField]
     private Sprite icon;
@@ -11,6 +11,8 @@ public class Item : ScriptableObject
     private int stackSize;
 
     public Sprite Icon { get => icon; }
+
     public int StackSize { get => stackSize; set => stackSize = value; }
+
     protected ScriptableObject Slot { get; set; }
 }

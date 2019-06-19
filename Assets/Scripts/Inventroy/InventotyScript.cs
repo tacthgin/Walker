@@ -18,6 +18,18 @@ public class InventotyScript : MonoBehaviour
             return instance;
         }
     }
+
+    //For debugging
+    [SerializeField]
+    private Item[] items;
+
+    private void Awake()
+    {
+        Bag bag = (Bag)Instantiate(items[0]);
+        bag.Initialize(20);
+        bag.Use();
+    }
+
     // Start is called before the first frame update
     void Start()
     {

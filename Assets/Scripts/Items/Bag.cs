@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Bag", menuName ="Item/Bag", order = 1)]
+[CreateAssetMenu(fileName = "Bag", menuName ="Items/Bag", order = 1)]
 public class Bag : Item, IUseable
 {
     [SerializeField]
