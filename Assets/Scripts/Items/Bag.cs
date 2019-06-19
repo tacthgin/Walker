@@ -6,7 +6,7 @@ using UnityEngine;
 public class Bag : Item, IUseable
 {
     [SerializeField]
-    private GameObject bagPrefab;
+    private GameObject bagPrefab = null;
 
     public BagScript MyBagScript { get; set; }
 

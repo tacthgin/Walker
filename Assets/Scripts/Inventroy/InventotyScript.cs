@@ -22,15 +22,15 @@ public class InventotyScript : MonoBehaviour
     private List<Bag> bags = new List<Bag>();
 
     [SerializeField]
-    private BagButton[] bagButtons;
+    private BagButton[] bagButtons = null;
 
     //For debugging
     [SerializeField]
-    private Item[] items;
+    private Item[] items = null;
 
     public bool canAddBag
     {
-        get { return bags.Count < 5; } 
+        get => bags.Count < 5;
     }
 
     private void Awake()
@@ -65,6 +65,20 @@ public class InventotyScript : MonoBehaviour
             Bag bag = (Bag)Instantiate(items[0]);
             bag.Initialize(16);
             bag.Use();
+        }
+    }
+
+    public void OpenClose()
+    {
+        bool closedBag = bags.Find(x => !x.MyBagScript.IsOpen);
+
+        //closedBag 为true，打开所有背包，否则关闭所有背包
+        foreach (Bag bag in bags)
+        {
+            if (bag.MyBagScript.IsOpen != closedBag)
+            {
+                bag.MyBagScript.OpenClose();
+            }
         }
     }
 }

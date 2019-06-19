@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Item : ScriptableObject
 {
     [SerializeField]
-    private Sprite icon;
+    private Sprite icon = null;
 
     [SerializeField]
     private int stackSize;

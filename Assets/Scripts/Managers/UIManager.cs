@@ -60,6 +60,12 @@ public class UIManager : MonoBehaviour
         {
             OpenClose(spellBook);
         }
+
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            InventotyScript.MyInstance.OpenClose();
+        }
     }
 
     public void showTargetFrame(Npc target)
