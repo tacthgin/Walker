@@ -63,7 +63,7 @@ public class InventotyScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             Bag bag = (Bag)Instantiate(items[0]);
-            bag.Initialize(20);
+            bag.Initialize(16);
             bag.Use();
         }
     }
