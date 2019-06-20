@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotScript : MonoBehaviour
+public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 {
     private Stack<Item> items = new Stack<Item>();
 
@@ -15,23 +16,49 @@ public class SlotScript : MonoBehaviour
         get => items.Count == 0;
     }
 
+    public Item MyItem
+    {
+        get {
+            if (!IsEmpty) { return items.Peek(); }
+            return null;
+        }
+    }
+
+    public Image MyIcon { get => icon; set => icon = value; }
+
+    public int MyCount { get => items.Count; }
+
     public bool AddItem(Item item)
     {
         items.Push(item);
         icon.sprite = item.MyIcon;
         icon.color = Color.white;
+        item.MySlot = this;
         return true;
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void RemoveItem()
     {
-        
+        if (!IsEmpty)
+        {
+            items.Pop();
+            UIManager.MyInstance.UpdateStackSize(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            UseItem();
+        }
+    }
+
+    public void UseItem()
+    {
+        if (MyItem is IUseable)
+        {
+            (MyItem as IUseable).Use();
+        }
     }
 }
