@@ -10,7 +10,7 @@ public abstract class Item : ScriptableObject
     [SerializeField]
     private int stackSize;
 
-    public Sprite Icon { get => icon; }
+    public Sprite MyIcon { get => icon; }
 
     public int StackSize { get => stackSize; set => stackSize = value; }
 

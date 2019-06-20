@@ -51,6 +51,17 @@ public class InventotyScript : MonoBehaviour
         }
     }
 
+    public void AddItem(Item item)
+    {
+        foreach (Bag bag in bags)
+        {
+            if (bag.MyBagScript.AddItem(item))
+            {
+                return;
+            }
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -65,6 +76,13 @@ public class InventotyScript : MonoBehaviour
             Bag bag = (Bag)Instantiate(items[0]);
             bag.Initialize(16);
             bag.Use();
+        }
+
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Bag bag = (Bag)Instantiate(items[0]);
+            bag.Initialize(16);
+            AddItem(bag);
         }
     }
 
