@@ -48,6 +48,11 @@ public class UIManager : MonoBehaviour
         healthStat = targetFrame.GetComponentInChildren<Stat>();
     }
 
+    internal void UpdateStackSize()
+    {
+        throw new NotImplementedException();
+    }
+
     // Update is called once per frame
     void Update()
     {

@@ -84,6 +84,12 @@ public class InventotyScript : MonoBehaviour
             bag.Initialize(16);
             AddItem(bag);
         }
+
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            HealthPotion potion = (HealthPotion)Instantiate(items[1]);
+            AddItem(potion);
+        }
     }
 
     public void OpenClose()

@@ -28,14 +28,7 @@ public class Stat : MonoBehaviour
 
         set
         {
-            if (value > MyMaxValue)
-            {
-                value = MyMaxValue;
-            }else if (value < 0)
-            {
-                value = 0;
-            }
-            currentValue = value;
+            currentValue = Mathf.Clamp(value, 0, MyMaxValue);
 
             currentFill = currentValue / MyMaxValue;
 
@@ -44,6 +37,11 @@ public class Stat : MonoBehaviour
                 statValue.text = currentValue + "/" + MyMaxValue;
             } 
         }
+    }
+
+    public bool IsFull
+    {
+        get => MyCurrentValue == MyMaxValue;
     }
 
     // Start is called before the first frame update
