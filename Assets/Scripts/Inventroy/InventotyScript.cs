@@ -53,13 +53,15 @@ public class InventotyScript : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        foreach (Bag bag in bags)
+        if (item.MyStackSize > 0)
         {
-            if (bag.MyBagScript.AddItem(item))
+            if (PlaceInStack(item))
             {
                 return;
             }
         }
+
+        PlaceInEmpty(item);
     }
 
     // Start is called before the first frame update
@@ -104,5 +106,32 @@ public class InventotyScript : MonoBehaviour
                 bag.MyBagScript.OpenClose();
             }
         }
+    }
+
+    private void PlaceInEmpty(Item item)
+    {
+        foreach (Bag bag in bags)
+        {
+            if (bag.MyBagScript.AddItem(item))
+            {
+                return;
+            }
+        }
+    }
+
+    private bool PlaceInStack(Item item)
+    {
+        foreach (Bag bag in bags)
+        {
+            foreach (SlotScript slots in bag.MyBagScript.MySlots)
+            {
+                if (slots.StackItem(item))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

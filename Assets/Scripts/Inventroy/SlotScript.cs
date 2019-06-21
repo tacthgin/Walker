@@ -61,4 +61,15 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
             (MyItem as IUseable).Use();
         }
     }
+
+    public bool StackItem(Item item)
+    {
+        if (!IsEmpty && item.name == MyItem.name && items.Count < MyItem.MyStackSize)
+        {
+            items.Push(item);
+            item.MySlot = this;
+            return true;
+        }
+        return false;
+    }
 }

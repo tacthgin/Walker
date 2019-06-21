@@ -9,12 +9,11 @@ public class BagScript : MonoBehaviour
 
     private CanvasGroup canvasGroup;
 
-    private List<SlotScript> slots = new List<SlotScript>();
-
     public bool IsOpen
     {
         get => canvasGroup.alpha > 0;
     }
+    public List<SlotScript> MySlots { get; } = new List<SlotScript>();
 
     private void Awake()
     {
@@ -26,13 +25,13 @@ public class BagScript : MonoBehaviour
         for (int i = 0; i < slotCount; i++)
         {
             SlotScript slot = Instantiate(slotPrefab, transform).GetComponent<SlotScript>();
-            slots.Add(slot);
+            MySlots.Add(slot);
         }
     }
 
     public bool AddItem(Item item)
     {
-        foreach (SlotScript slot in slots)
+        foreach (SlotScript slot in MySlots)
         {
             if (slot.IsEmpty)
             {
