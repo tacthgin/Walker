@@ -102,6 +102,17 @@ public class Player : Character
                 UIManager.MyInstance.ClickActionButton(action);
             }
         }
+
+        //testing
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            MyHealth.MyCurrentValue -= 10;
+        }
+        //testing
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            MyHealth.MyCurrentValue += 10;
+        }
     }
 
     public void SetLimits(Vector3 min, Vector3 max)
