@@ -28,9 +28,23 @@ public class InventotyScript : MonoBehaviour
     [SerializeField]
     private Item[] items = null;
 
+    private SlotScript fromSlot;
+
     public bool canAddBag
     {
         get => bags.Count < 5;
+    }
+
+    public SlotScript FromSlot
+    {
+        get => fromSlot;
+        set {
+            fromSlot = value;
+            if (value != null)
+            {
+                fromSlot.MyIcon.color = Color.grey;
+            }
+        }
     }
 
     private void Awake()

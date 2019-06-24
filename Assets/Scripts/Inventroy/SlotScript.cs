@@ -61,6 +61,16 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (InventotyScript.MyInstance.FromSlot ==null && !IsEmpty)
+            {
+                HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
+                InventotyScript.MyInstance.FromSlot = this;
+            }
+        }
+
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            //右键使用物品
             UseItem();
         }
     }
