@@ -19,6 +19,19 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
         get => items.Count == 0;
     }
 
+    public bool IsFull
+    {
+        get
+        {
+            if (IsEmpty || MyCount < MyItem.MyStackSize)
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+
     public Item MyItem
     {
         get {
@@ -49,6 +62,28 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
         return true;
     }
 
+    public bool AddItems(ObservableStack<Item> newItems)
+    {
+        if (IsEmpty || newItems.Peek().GetType() == MyItem.GetType())
+        {
+            int count = newItems.Count;
+
+            for (int i = 0; i < count; i++)
+            {
+                if (IsFull)
+                {
+                    return false;
+                }
+
+                AddItem(newItems.Pop());
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
     public void RemoveItem()
     {
         if (!IsEmpty)
@@ -61,10 +96,17 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
-            if (InventotyScript.MyInstance.FromSlot ==null && !IsEmpty)
+            if (InventotyScript.MyInstance.FromSlot == null && !IsEmpty)
             {
                 HandScript.MyInstance.TakeMoveable(MyItem as IMoveable);
                 InventotyScript.MyInstance.FromSlot = this;
+            }else if (InventotyScript.MyInstance.FromSlot != null)
+            {
+                if (PutItemBack() || Swapitems(InventotyScript.MyInstance.FromSlot) || AddItems(InventotyScript.MyInstance.FromSlot.items))
+                {
+                    HandScript.MyInstance.Drop();
+                    InventotyScript.MyInstance.FromSlot = null;
+                }
             }
         }
 
@@ -91,6 +133,40 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
             item.MySlot = this;
             return true;
         }
+        return false;
+    }
+
+    private bool PutItemBack()
+    {
+        if (InventotyScript.MyInstance.FromSlot == this)
+        {
+            InventotyScript.MyInstance.FromSlot.MyIcon.color = Color.white;
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool Swapitems(SlotScript from)
+    {
+        if (IsEmpty)
+        {
+            return false;
+        }
+
+        if (from.MyItem.GetType() != MyItem.GetType() || from.MyCount + MyCount > MyItem.MyStackSize)
+        {
+            ObservableStack<Item> tmpFrom = new ObservableStack<Item>(from.items);
+
+            from.items.Clear();
+            from.AddItems(items);
+
+            items.Clear();
+            AddItems(tmpFrom);
+
+            return true;
+        }
+
         return false;
     }
 
