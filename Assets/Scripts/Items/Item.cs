@@ -8,7 +8,7 @@ public abstract class Item : ScriptableObject, IMoveable
     private Sprite icon = null;
 
     [SerializeField]
-    private int stackSize;
+    private int stackSize = 0;
 
     public Sprite MyIcon { get => icon; }
 

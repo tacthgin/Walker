@@ -92,6 +92,14 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
         }
     }
 
+    public void Clear()
+    {
+        if (items.Count > 0)
+        {
+            items.Clear();
+        }
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -102,7 +110,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
                 InventotyScript.MyInstance.FromSlot = this;
             }else if (InventotyScript.MyInstance.FromSlot != null)
             {
-                if (PutItemBack() || Swapitems(InventotyScript.MyInstance.FromSlot) || AddItems(InventotyScript.MyInstance.FromSlot.items))
+                if (PutItemBack() || MergeItems(InventotyScript.MyInstance.FromSlot) || Swapitems(InventotyScript.MyInstance.FromSlot) || AddItems(InventotyScript.MyInstance.FromSlot.items))
                 {
                     HandScript.MyInstance.Drop();
                     InventotyScript.MyInstance.FromSlot = null;
@@ -163,6 +171,28 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 
             items.Clear();
             AddItems(tmpFrom);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool MergeItems(SlotScript from)
+    {
+        if (IsEmpty)
+        {
+            return false;
+        }
+
+        if (from.MyItem.GetType() == MyItem.GetType() || !IsFull)
+        {
+            int free = MyItem.MyStackSize - MyCount;
+
+            for (int i = 0; i < free; i++)
+            {
+                AddItem(from.items.Pop());
+            }
 
             return true;
         }
