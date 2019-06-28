@@ -35,6 +35,20 @@ public class InventotyScript : MonoBehaviour
         get => bags.Count < 5;
     }
 
+    public int MyEmptySlotCount
+    {
+        get
+        {
+            int count = 0;
+            foreach (Bag bag in bags)
+            {
+                count += bag.MyBagScript.MyEmptySlotCount;
+            }
+
+            return count;
+        }
+    }
+
     public SlotScript FromSlot
     {
         get => fromSlot;

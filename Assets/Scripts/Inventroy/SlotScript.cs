@@ -14,6 +14,8 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     [SerializeField]
     private Text stackSize;
 
+    public BagScript MyBag { get; set; }
+
     public bool IsEmpty
     {
         get => items.Count == 0;
@@ -112,9 +114,13 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
             else if (InventotyScript.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
             {
                 Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
-                AddItem(bag);
-                bag.MyBagButton.RemoveBag();
-                HandScript.MyInstance.Drop();
+
+                if (bag.MyBagScript != MyBag && InventotyScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                {
+                    AddItem(bag);
+                    bag.MyBagButton.RemoveBag();
+                    HandScript.MyInstance.Drop();
+                }
             }
             else if (InventotyScript.MyInstance.FromSlot != null)
             {
