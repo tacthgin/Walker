@@ -59,10 +59,17 @@ public class InventotyScript : MonoBehaviour
             if (bagButton.MyBag == null)
             {
                 bagButton.MyBag = bag;
+                bag.MyBagButton = bagButton;
                 bags.Add(bag);
                 break;
             }
         }
+    }
+
+    public void RemoveBag(Bag bag)
+    {
+        bags.Remove(bag);
+        Destroy(bag.MyBagScript.gameObject);
     }
 
     public void AddItem(Item item)
