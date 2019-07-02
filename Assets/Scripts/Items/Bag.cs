@@ -27,19 +27,15 @@ public class Bag : Item, IUseable
             MyBagScript = Instantiate(bagPrefab, InventotyScript.MyInstance.transform).GetComponent<BagScript>();
             MyBagScript.AddSlots(Slots);
 
-            InventotyScript.MyInstance.AddBag(this);
+            if (MyBagButton == null)
+            {
+                InventotyScript.MyInstance.AddBag(this);
+            }else
+            {
+                InventotyScript.MyInstance.AddBag(this, MyBagButton);
+            }
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }
