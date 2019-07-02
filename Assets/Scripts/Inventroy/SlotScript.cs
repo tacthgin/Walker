@@ -47,6 +47,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     public int MyCount { get => items.Count; }
 
     public Text MyStackText { get => stackSize; }
+    public ObservableStack<Item> MyItems { get => items; }
 
     private void Awake()
     {

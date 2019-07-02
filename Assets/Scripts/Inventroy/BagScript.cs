@@ -31,6 +31,24 @@ public class BagScript : MonoBehaviour
         }
     }
 
+    public List<Item> GetItems()
+    {
+        List<Item> items = new List<Item>();
+
+        foreach (SlotScript slot in MySlots)
+        {
+            if (!slot.IsEmpty)
+            {
+                foreach (Item item in slot.MyItems)
+                {
+                    items.Add(item);
+                }
+            }
+        }
+
+        return items;
+    }
+
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
