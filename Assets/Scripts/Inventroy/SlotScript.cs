@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 {
-    private ObservableStack<Item> items = new ObservableStack<Item>();
-
     [SerializeField]
     private Image icon;
 
@@ -16,9 +12,17 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 
     public BagScript MyBag { get; set; }
 
+    public Image MyIcon { get => icon; set => icon = value; }
+
+    public int MyCount { get => MyItems.Count; }
+
+    public Text MyStackText { get => stackSize; }
+
+    public ObservableStack<Item> MyItems { get; } = new ObservableStack<Item>();
+
     public bool IsEmpty
     {
-        get => items.Count == 0;
+        get => MyItems.Count == 0;
     }
 
     public bool IsFull
@@ -37,28 +41,21 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     public Item MyItem
     {
         get {
-            if (!IsEmpty) { return items.Peek(); }
+            if (!IsEmpty) { return MyItems.Peek(); }
             return null;
         }
     }
 
-    public Image MyIcon { get => icon; set => icon = value; }
-
-    public int MyCount { get => items.Count; }
-
-    public Text MyStackText { get => stackSize; }
-    public ObservableStack<Item> MyItems { get => items; }
-
     private void Awake()
     {
-        items.OnPop += new UpdateStackEvent(UpdateSlot);
-        items.OnPush += new UpdateStackEvent(UpdateSlot);
-        items.OnClear += new UpdateStackEvent(UpdateSlot);
+        MyItems.OnPop += new UpdateStackEvent(UpdateSlot);
+        MyItems.OnPush += new UpdateStackEvent(UpdateSlot);
+        MyItems.OnClear += new UpdateStackEvent(UpdateSlot);
     }
 
     public bool AddItem(Item item)
     {
-        items.Push(item);
+        MyItems.Push(item);
         icon.sprite = item.MyIcon;
         icon.color = Color.white;
         item.MySlot = this;
@@ -91,15 +88,15 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     {
         if (!IsEmpty)
         {
-            items.Pop();
+            MyItems.Pop();
         }
     }
 
     public void Clear()
     {
-        if (items.Count > 0)
+        if (MyItems.Count > 0)
         {
-            items.Clear();
+            MyItems.Clear();
         }
     }
 
@@ -109,6 +106,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
         {
             if (InventotyScript.MyInstance.FromSlot == null && !IsEmpty)
             {
+                //快捷栏的背包
                 if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
                 {
                     if (MyItem is Bag)
@@ -134,7 +132,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
             }
             else if (InventotyScript.MyInstance.FromSlot != null)
             {
-                if (PutItemBack() || MergeItems(InventotyScript.MyInstance.FromSlot) || Swapitems(InventotyScript.MyInstance.FromSlot) || AddItems(InventotyScript.MyInstance.FromSlot.items))
+                if (PutItemBack() || MergeItems(InventotyScript.MyInstance.FromSlot) || Swapitems(InventotyScript.MyInstance.FromSlot) || AddItems(InventotyScript.MyInstance.FromSlot.MyItems))
                 {
                     HandScript.MyInstance.Drop();
                     InventotyScript.MyInstance.FromSlot = null;
@@ -159,9 +157,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 
     public bool StackItem(Item item)
     {
-        if (!IsEmpty && item.name == MyItem.name && items.Count < MyItem.MyStackSize)
+        if (!IsEmpty && item.name == MyItem.name && MyItems.Count < MyItem.MyStackSize)
         {
-            items.Push(item);
+            MyItems.Push(item);
             item.MySlot = this;
             return true;
         }
@@ -188,12 +186,12 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 
         if (from.MyItem.GetType() != MyItem.GetType() || from.MyCount + MyCount > MyItem.MyStackSize)
         {
-            ObservableStack<Item> tmpFrom = new ObservableStack<Item>(from.items);
+            ObservableStack<Item> tmpFrom = new ObservableStack<Item>(from.MyItems);
 
-            from.items.Clear();
-            from.AddItems(items);
+            from.MyItems.Clear();
+            from.AddItems(MyItems);
 
-            items.Clear();
+            MyItems.Clear();
             AddItems(tmpFrom);
 
             return true;
@@ -215,7 +213,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
 
             for (int i = 0; i < free; i++)
             {
-                AddItem(from.items.Pop());
+                AddItem(from.MyItems.Pop());
             }
 
             return true;

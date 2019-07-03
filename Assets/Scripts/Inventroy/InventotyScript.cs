@@ -71,6 +71,9 @@ public class InventotyScript : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 选择背包的物品
+    /// </summary>
     public SlotScript FromSlot
     {
         get => fromSlot;
@@ -170,6 +173,13 @@ public class InventotyScript : MonoBehaviour
             Bag bag = (Bag)Instantiate(items[0]);
             bag.Initialize(16);
             bag.Use();
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            Bag bag = (Bag)Instantiate(items[0]);
+            bag.Initialize(8);
+            AddItem(bag);
         }
 
         if (Input.GetKeyDown(KeyCode.K))
