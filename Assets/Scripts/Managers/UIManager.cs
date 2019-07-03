@@ -124,6 +124,7 @@ public class UIManager : MonoBehaviour
         if (clickable.MyCount == 0)
         {
             clickable.MyStackText.color = new Color(0, 0, 0, 0);
+            clickable.MyIcon.sprite = null;
             clickable.MyIcon.color = new Color(0, 0, 0, 0);
         }
     } 

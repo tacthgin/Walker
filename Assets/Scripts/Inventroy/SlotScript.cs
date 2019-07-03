@@ -8,7 +8,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     private Image icon;
 
     [SerializeField]
-    private Text stackSize;
+    private Text stackSize = null;
 
     public BagScript MyBag { get; set; }
 
@@ -132,7 +132,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
             }
             else if (InventotyScript.MyInstance.FromSlot != null)
             {
-                if (PutItemBack() || MergeItems(InventotyScript.MyInstance.FromSlot) || Swapitems(InventotyScript.MyInstance.FromSlot) || AddItems(InventotyScript.MyInstance.FromSlot.MyItems))
+                if (PutItemBack() || MergeItems(InventotyScript.MyInstance.FromSlot) || SwapItems(InventotyScript.MyInstance.FromSlot) || AddItems(InventotyScript.MyInstance.FromSlot.MyItems))
                 {
                     HandScript.MyInstance.Drop();
                     InventotyScript.MyInstance.FromSlot = null;
@@ -177,7 +177,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
         return false;
     }
 
-    private bool Swapitems(SlotScript from)
+    private bool SwapItems(SlotScript from)
     {
         if (IsEmpty)
         {
@@ -207,7 +207,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
             return false;
         }
 
-        if (from.MyItem.GetType() == MyItem.GetType() || !IsFull)
+        if (from.MyItem.GetType() == MyItem.GetType() && !IsFull)
         {
             int free = MyItem.MyStackSize - MyCount;
 

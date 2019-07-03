@@ -13,6 +13,7 @@ public class BagScript : MonoBehaviour
     {
         get => canvasGroup.alpha > 0;
     }
+
     public List<SlotScript> MySlots { get; } = new List<SlotScript>();
 
     public int MyEmptySlotCount {
