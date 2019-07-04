@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -7,6 +8,10 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
     public Button MyButton { get; private set; }
 
     public IUseable MyUseable { get; set; }
+
+    private Stack<IUseable> useables;
+
+    private int count = 0;
 
     [SerializeField]
     private Image icon;
@@ -28,9 +33,17 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
 
     public void OnClick()
     {
-        if (MyUseable != null)
+        if (HandScript.MyInstance.MyMoveable == null)
         {
-            MyUseable.Use();
+            if (MyUseable != null)
+            {
+                MyUseable.Use();
+            }
+
+            if (useables != null && useables.Count > 0)
+            {
+                useables.Pop().Use();
+            }
         }
     }
 
@@ -47,7 +60,18 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler
 
     public void SetUseable(IUseable useable)
     {
-        MyUseable = useable;
+        if (useable is Item)
+        {
+            useables = InventotyScript.MyInstance.GetUseables(useable);
+            count = useables.Count;
+            InventotyScript.MyInstance.FromSlot.MyIcon.color = Color.white;
+            InventotyScript.MyInstance.FromSlot = null;
+        }
+        else
+        {
+            MyUseable = useable;
+        }
+
         UpdateVisual();
     }
 
