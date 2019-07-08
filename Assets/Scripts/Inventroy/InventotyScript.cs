@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public delegate void ItemCountChanged(Item item);
+
 public class InventotyScript : MonoBehaviour
 {
+    public ItemCountChanged itemCountChangedEvent = null;
+
     private static InventotyScript instance;
 
     public static InventotyScript MyInstance
@@ -229,6 +233,7 @@ public class InventotyScript : MonoBehaviour
             {
                 if (slots.StackItem(item))
                 {
+                    OnItemCountChanged(item);
                     return true;
                 }
             }
@@ -256,5 +261,13 @@ public class InventotyScript : MonoBehaviour
         }
 
         return useables;
+    }
+
+    public void OnItemCountChanged(Item item)
+    {
+        if (itemCountChangedEvent != null)
+        {
+            itemCountChangedEvent.Invoke(item);
+        }
     }
 }
