@@ -9,7 +9,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
 
     public IUseable MyUseable { get; set; }
 
-    private Stack<IUseable> useables;
+    private Stack<IUseable> useables = new Stack<IUseable>();
 
     [SerializeField]
     private Image icon;
@@ -47,7 +47,7 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
                 MyUseable.Use();
             }
 
-            if (useables != null && useables.Count > 0)
+            if (useables.Count > 0)
             {
                 useables.Peek().Use();
             }
@@ -86,6 +86,11 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
     {
         MyIcon.sprite = HandScript.MyInstance.Put().MyIcon;
         MyIcon.color = Color.white;
+
+        if (MyCount > 1)
+        {
+            UIManager.MyInstance.UpdateStackSize(this);
+        }
     }
 
     public void UpdateItemCount(Item item)
