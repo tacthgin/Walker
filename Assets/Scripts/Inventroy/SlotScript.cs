@@ -96,8 +96,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     {
         if (MyItems.Count > 0)
         {
-            InventotyScript.MyInstance.OnItemCountChanged(MyItems.Pop());
+            Item item = MyItems.Pop();
             MyItems.Clear();
+            InventotyScript.MyInstance.OnItemCountChanged(item);
         }
     }
 
