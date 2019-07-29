@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
+public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPointerEnterHandler, IPointerExitHandler
 {
     public Button MyButton { get; private set; }
 
@@ -106,5 +106,18 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable
                 UIManager.MyInstance.UpdateStackSize(this);
             }
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (MyUseable != null || useables.Count > 0)
+        {
+            UIManager.MyInstance.ShowTooltip(transform.position);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.MyInstance.HideTooltip();
     }
 }

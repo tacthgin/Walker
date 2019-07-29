@@ -132,9 +132,10 @@ public class UIManager : MonoBehaviour
         }
     } 
 
-    public void ShowTooltip()
+    public void ShowTooltip(Vector3 position)
     {
         tooltip.SetActive(true);
+        tooltip.transform.position = position;
     }
 
     public void HideTooltip()
