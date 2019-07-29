@@ -24,7 +24,7 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     [SerializeField]
     private Quality quality;
 
-    public string GetDescription()
+    public virtual string GetDescription()
     {
         string color = string.Empty;
 

@@ -37,5 +37,8 @@ public class Bag : Item, IUseable
         }
     }
 
-    
+    public override string GetDescription()
+    {
+        return base.GetDescription() + string.Format("\n<color=#ffffffff>{0} slot bag</color>", Slots);
+    }
 }
