@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
+public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private Image icon;
@@ -227,5 +227,18 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable
     private void UpdateSlot()
     {
         UIManager.MyInstance.UpdateStackSize(this);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!IsEmpty)
+        {
+            UIManager.MyInstance.ShowTooltip();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.MyInstance.HideTooltip();
     }
 }

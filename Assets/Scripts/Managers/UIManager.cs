@@ -38,6 +38,9 @@ public class UIManager : MonoBehaviour
 
     private Stat healthStat;
 
+    [SerializeField]
+    private GameObject tooltip;
+
     void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
@@ -128,5 +131,15 @@ public class UIManager : MonoBehaviour
             clickable.MyIcon.color = new Color(0, 0, 0, 0);
         }
     } 
+
+    public void ShowTooltip()
+    {
+        tooltip.SetActive(true);
+    }
+
+    public void HideTooltip()
+    {
+        tooltip.SetActive(false);
+    }
 }
 
