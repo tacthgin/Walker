@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class Spell : IUseable, IMoveable
+public class Spell : IUseable, IMoveable, IDescribable
 {
     [SerializeField]
     private string name = "";
@@ -23,6 +23,9 @@ public class Spell : IUseable, IMoveable
     private GameObject spellPrefab = null;
 
     [SerializeField]
+    private string description;
+
+    [SerializeField]
     private Color barColor = Color.white;
 
     public string MyName { get => name; }
@@ -38,6 +41,11 @@ public class Spell : IUseable, IMoveable
     public GameObject MySpellPrefab { get => spellPrefab; }
 
     public Color MyBarColor { get => barColor; }
+
+    public string GetDescription()
+    {
+        return string.Format("{0}\nCast time: {1} seconds(s)\n<color=#ffd111>{2}\nThat causes {3} damage</color>", name, MyCastTime, description, MyDamage);
+    }
 
     public void Use()
     {
