@@ -26,6 +26,8 @@ public class LootWindow : MonoBehaviour
     {
         int itemIndex = 3;
 
+        lootButtons[itemIndex].MyLoot = items[itemIndex];
+
         lootButtons[itemIndex].MyIcon.sprite = items[itemIndex].MyIcon;
 
         lootButtons[itemIndex].gameObject.SetActive(true);
