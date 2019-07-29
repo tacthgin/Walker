@@ -12,17 +12,21 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     [SerializeField]
     private int stackSize = 0;
 
+    [SerializeField]
+    private string title = string.Empty;
+
+    [SerializeField]
+    private Quality quality = Quality.Common;
+
     public Sprite MyIcon { get => icon; }
 
     public int MyStackSize { get => stackSize; }
 
     public SlotScript MySlot { get; set; }
 
-    [SerializeField]
-    private string title = string.Empty;
+    public Quality MyQuality { get => quality; }
 
-    [SerializeField]
-    private Quality quality = Quality.Common;
+    public string MyTitle { get => title; }
 
     public virtual string GetDescription()
     {
