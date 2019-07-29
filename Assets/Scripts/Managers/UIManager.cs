@@ -41,9 +41,12 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     private GameObject tooltip;
 
+    private Text tooltipText;
+
     void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
+        tooltipText = tooltip.GetComponentInChildren<Text>();
     }
 
     void Start()
@@ -132,10 +135,11 @@ public class UIManager : MonoBehaviour
         }
     } 
 
-    public void ShowTooltip(Vector3 position)
+    public void ShowTooltip(Vector3 position, IDescribable description)
     {
         tooltip.SetActive(true);
         tooltip.transform.position = position;
+        tooltipText.text = description.GetDescription();
     }
 
     public void HideTooltip()
