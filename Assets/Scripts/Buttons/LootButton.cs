@@ -10,17 +10,25 @@ public class LootButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     [SerializeField]
     private Text title = null;
 
+    private LootWindow lootWindow = null;
+
     public Image MyIcon { get => icon; }
 
     public Text MyTitle { get => title; }
 
     public Item MyLoot { get; set; }
 
+    void Awake()
+    {
+        lootWindow = gameObject.GetComponentInParent<LootWindow>();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (InventotyScript.MyInstance.AddItem(MyLoot))
         {
             gameObject.SetActive(false);
+            lootWindow.TakeLoot(MyLoot);
             UIManager.MyInstance.HideTooltip();
         }
     }

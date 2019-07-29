@@ -104,4 +104,13 @@ public class Enemy : Npc
         MyHealth.MyCurrentValue = MyHealth.MyMaxValue;
         onHealthChanged(health.MyCurrentValue);
     }
+
+    public override void Interact()
+    {
+        Debug.Log("hello player");
+        if (!IsAlive)
+        {
+            UIManager.MyInstance.ShowLootWindow();
+        }
+    }
 }

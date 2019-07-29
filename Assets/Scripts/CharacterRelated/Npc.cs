@@ -40,4 +40,9 @@ public class Npc : Character
         characterRemoved?.Invoke();
         Destroy(gameObject);
     }
+
+    public virtual void Interact()
+    {
+        Debug.Log("this will open a dialog with the NPC");
+    }
 }

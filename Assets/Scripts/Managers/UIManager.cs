@@ -43,6 +43,9 @@ public class UIManager : MonoBehaviour
 
     private Text tooltipText;
 
+    [SerializeField]
+    private GameObject lootWindow = null;
+
     void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
@@ -145,6 +148,11 @@ public class UIManager : MonoBehaviour
     public void HideTooltip()
     {
         tooltip.SetActive(false);
+    }
+
+    public void ShowLootWindow()
+    {
+        lootWindow.SetActive(true);
     }
 }
 
