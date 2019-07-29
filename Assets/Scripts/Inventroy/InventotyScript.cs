@@ -198,6 +198,18 @@ public class InventotyScript : MonoBehaviour
             HealthPotion potion = (HealthPotion)Instantiate(items[1]);
             AddItem(potion);
         }
+
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Armor armor = (Armor)Instantiate(items[2]);
+            AddItem(armor);
+            armor = (Armor)Instantiate(items[3]);
+            AddItem(armor);
+            armor = (Armor)Instantiate(items[4]);
+            AddItem(armor);
+            armor = (Armor)Instantiate(items[5]);
+            AddItem(armor);
+        }
     }
 
     public void OpenClose()

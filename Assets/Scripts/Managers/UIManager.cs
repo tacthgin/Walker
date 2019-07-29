@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
     private Stat healthStat;
 
     [SerializeField]
-    private GameObject tooltip;
+    private GameObject tooltip = null;
 
     private Text tooltipText;
 

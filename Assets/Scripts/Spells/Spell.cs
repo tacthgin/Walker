@@ -23,7 +23,7 @@ public class Spell : IUseable, IMoveable, IDescribable
     private GameObject spellPrefab = null;
 
     [SerializeField]
-    private string description;
+    private string description = string.Empty;
 
     [SerializeField]
     private Color barColor = Color.white;
