@@ -110,7 +110,6 @@ public class Enemy : Npc
 
     public override void Interact()
     {
-        Debug.Log("hello player");
         if (!IsAlive)
         {
             lootTable.ShowLoot();
