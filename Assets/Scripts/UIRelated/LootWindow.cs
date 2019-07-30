@@ -32,9 +32,6 @@ public class LootWindow : MonoBehaviour
     [SerializeField]
     private GameObject nextBtn = null;
 
-    [SerializeField]
-    private Item[] items = null;
-
     private int pageIndex = 0;
 
     private List<List<Item>> pages = new List<List<Item>>();
@@ -51,11 +48,6 @@ public class LootWindow : MonoBehaviour
     void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-    }
-
-    void Start()
-    {
-        
     }
 
     public void CreatePages(List<Item> items)

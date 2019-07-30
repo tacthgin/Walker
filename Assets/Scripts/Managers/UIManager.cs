@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
     private Text tooltipText;
 
     [SerializeField]
-    private CharacterPanel characterPanel;
+    private CharacterPanel characterPanel = null;
 
     void Awake()
     {
