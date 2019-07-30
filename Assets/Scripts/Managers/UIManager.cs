@@ -43,6 +43,9 @@ public class UIManager : MonoBehaviour
 
     private Text tooltipText;
 
+    [SerializeField]
+    private CharacterPanel characterPanel;
+
     void Awake()
     {
         keybindButtons = GameObject.FindGameObjectsWithTag("Keybind");
@@ -71,6 +74,11 @@ public class UIManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.B))
         {
             InventotyScript.MyInstance.OpenClose();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            characterPanel.OpenClose();
         }
     }
 
