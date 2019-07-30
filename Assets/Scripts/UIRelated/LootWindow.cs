@@ -120,11 +120,22 @@ public class LootWindow : MonoBehaviour
 
         if (pages[pageIndex].Count == 0)
         {
+            //当前页全部拾取完
             pages.Remove(pages[pageIndex]);
 
             if (pageIndex == pages.Count && pageIndex > 0)
             {
                 pageIndex--;
+            }
+
+            AddLoot();
+        }else if (pages[pageIndex].Count < 4 && pages.Count > pageIndex + 1)
+        {
+            pages[pageIndex].Add(pages[pageIndex + 1][0]);
+            pages[pageIndex + 1].RemoveAt(0);
+            if (pages[pageIndex + 1].Count == 0)
+            {
+                pages.Remove(pages[pageIndex + 1]);
             }
 
             AddLoot();
