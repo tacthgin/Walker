@@ -20,6 +20,7 @@ public class Enemy : Npc
 
     public Vector3 MyStartPosition { get; set; }
 
+    private LootTable lootTable;
 
     public bool InRange
     {
@@ -35,6 +36,8 @@ public class Enemy : Npc
         MyAggroRange = initAggroRange;
         MyAttackRange = 1;
         ChangeState(new IdleState());
+
+        lootTable = GetComponent<LootTable>();
     }
 
     protected override void Update()
@@ -110,7 +113,7 @@ public class Enemy : Npc
         Debug.Log("hello player");
         if (!IsAlive)
         {
-            UIManager.MyInstance.ShowLootWindow();
+            lootTable.ShowLoot();
         }
     }
 }

@@ -5,6 +5,21 @@ using UnityEngine.UI;
 
 public class LootWindow : MonoBehaviour
 {
+    private static LootWindow instance;
+
+    public static LootWindow MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<LootWindow>();
+            }
+
+            return instance;
+        }
+    }
+
     [SerializeField]
     private LootButton[] lootButtons = null;
 
@@ -24,33 +39,48 @@ public class LootWindow : MonoBehaviour
 
     private List<List<Item>> pages = new List<List<Item>>();
 
-    // Start is called before the first frame update
+    private List<Item> droppedLoot = null;
+
+    private CanvasGroup canvasGroup = null;
+
+    public bool IsOpen
+    {
+        get { return canvasGroup.alpha == 1; }
+    }
+
+    void Awake()
+    {
+        canvasGroup = GetComponent<CanvasGroup>();
+    }
+
     void Start()
     {
-        List<Item> tmp = new List<Item>();
-        for (int i = 0; i < items.Length; i++)
-        {
-            tmp.Add(items[i]);
-        }
-        CreatePages(tmp);
+        
     }
 
     public void CreatePages(List<Item> items)
     {
-        List<Item> page = new List<Item>();
-
-        for (int i = 0; i < items.Count; i++)
+        if (!IsOpen)
         {
-            page.Add(items[i]);
+            List<Item> page = new List<Item>();
 
-            if (page.Count == 4 || i == items.Count - 1)
+            droppedLoot = items;
+
+            for (int i = 0; i < items.Count; i++)
             {
-                pages.Add(page);
-                page = new List<Item>();
-            }
-        }
+                page.Add(items[i]);
 
-        AddLoot();
+                if (page.Count == 4 || i == items.Count - 1)
+                {
+                    pages.Add(page);
+                    page = new List<Item>();
+                }
+            }
+
+            AddLoot();
+
+            Open();
+        }
     }
 
     private void AddLoot()
@@ -111,12 +141,14 @@ public class LootWindow : MonoBehaviour
 
     public void onCloseClick()
     {
-        gameObject.SetActive(false);
+        Close();
     }
 
     public void TakeLoot(Item item)
     {
         pages[pageIndex].Remove(item);
+
+        droppedLoot.Remove(item);
 
         if (pages[pageIndex].Count == 0)
         {
@@ -129,16 +161,21 @@ public class LootWindow : MonoBehaviour
             }
 
             AddLoot();
-        }else if (pages[pageIndex].Count < 4 && pages.Count > pageIndex + 1)
-        {
-            pages[pageIndex].Add(pages[pageIndex + 1][0]);
-            pages[pageIndex + 1].RemoveAt(0);
-            if (pages[pageIndex + 1].Count == 0)
-            {
-                pages.Remove(pages[pageIndex + 1]);
-            }
-
-            AddLoot();
         }
+    }
+
+    public void Close()
+    {
+        pages.Clear();
+        ClearButtons();
+        pageIndex = 0;
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    public void Open()
+    {
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
     }
 }
