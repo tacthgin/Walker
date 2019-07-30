@@ -214,6 +214,8 @@ public class InventotyScript : MonoBehaviour
             AddItem(armor);
             armor = (Armor)Instantiate(items[9]);
             AddItem(armor);
+            armor = (Armor)Instantiate(items[10]);
+            AddItem(armor);
         }
     }
 

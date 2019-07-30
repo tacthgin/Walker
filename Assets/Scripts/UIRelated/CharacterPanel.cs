@@ -4,8 +4,26 @@ using UnityEngine;
 
 public class CharacterPanel : MonoBehaviour
 {
+    private static CharacterPanel instance;
+
+    public static CharacterPanel MyInstance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<CharacterPanel>();
+            }
+
+            return instance;
+        }
+    }
+
     [SerializeField]
     private CanvasGroup canvasGroup = null;
+
+    [SerializeField]
+    private CharButton[] charButtons;
 
     // Start is called before the first frame update
     void Start()
@@ -24,5 +42,10 @@ public class CharacterPanel : MonoBehaviour
         canvasGroup.alpha = canvasGroup.alpha > 0 ? 0 : 1;
 
         canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
+    }
+
+    public void EquipArmor(Armor armor)
+    {
+        charButtons[(int)armor.MyArmorType].EquipArmor(armor);
     }
 }

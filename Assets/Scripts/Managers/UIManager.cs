@@ -154,5 +154,10 @@ public class UIManager : MonoBehaviour
     {
         tooltip.SetActive(false);
     }
+
+    public void RefreshTooltip(IDescribable description)
+    {
+        tooltipText.text = description.GetDescription();
+    }
 }
 

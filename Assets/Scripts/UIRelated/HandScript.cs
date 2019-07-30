@@ -41,7 +41,6 @@ public class HandScript : MonoBehaviour
 
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject() && MyInstance.MyMoveable != null)
         {
-            Debug.Log("hhhh");
             DeleteItem();
         }
     }
@@ -67,6 +66,7 @@ public class HandScript : MonoBehaviour
         MyMoveable = null;
         icon.sprite = null;
         icon.color = new Color(0, 0, 0, 0);
+        InventotyScript.MyInstance.FromSlot = null;
     }
 
     public void DeleteItem()
@@ -77,7 +77,5 @@ public class HandScript : MonoBehaviour
         }
 
         Drop();
-
-        InventotyScript.MyInstance.FromSlot = null;
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class CharButton : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
-    private ArmorType armorType = ArmorType.Helmet;
+    private ArmorType armorType = ArmorType.Head;
 
-    private Armor armor = null;
+    private Armor equippedArmor = null;
 
     [SerializeField]
     private Image icon = null;
@@ -32,10 +32,26 @@ public class CharButton : MonoBehaviour, IPointerClickHandler
 
     public void EquipArmor(Armor armor)
     {
+        armor.Remove();
+
+        if (equippedArmor != null)
+        {
+            //替换装备，也替换提示框
+            armor.MySlot.AddItem(equippedArmor);
+            UIManager.MyInstance.RefreshTooltip(equippedArmor);
+        }else
+        {
+            //装备的时候隐藏提示框
+            UIManager.MyInstance.HideTooltip();
+        }
+
         icon.enabled = true;
         icon.sprite = armor.MyIcon;
-        this.armor = armor;
+        equippedArmor = armor;
 
-        HandScript.MyInstance.DeleteItem();
+        if (HandScript.MyInstance.MyMoveable == (armor as IMoveable))
+        {
+            HandScript.MyInstance.Drop();
+        }
     }
 }

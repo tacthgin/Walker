@@ -154,6 +154,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
         if (MyItem is IUseable)
         {
             (MyItem as IUseable).Use();
+        }else if (MyItem is Armor)
+        {
+            (MyItem as Armor).Equip();
         }
     }
 
