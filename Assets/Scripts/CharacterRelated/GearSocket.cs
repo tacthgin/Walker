@@ -1,0 +1,82 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GearSocket : MonoBehaviour
+{
+    public Animator MyAnimator { get; set; }
+
+    private SpriteRenderer spriteRenderer;
+
+    private Animator parentAnimatior;
+
+    private AnimatorOverrideController animatorOverrideController;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        parentAnimatior = GetComponentInParent<Animator>();
+
+        MyAnimator = GetComponent<Animator>();
+
+        //防止原始controller被多个socket重复使用
+        animatorOverrideController = new AnimatorOverrideController(MyAnimator.runtimeAnimatorController);
+
+        MyAnimator.runtimeAnimatorController = animatorOverrideController;
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void Equip(AnimationClip[] animations)
+    {
+        spriteRenderer.color = Color.white;
+
+        animatorOverrideController["Wizard_Attack_Back"] = animations[0];
+        animatorOverrideController["Wizard_Attack_Front"] = animations[1];
+        animatorOverrideController["Wizard_Attack_Left"] = animations[2];
+        animatorOverrideController["Wizard_Attack_Right"] = animations[3];
+
+        animatorOverrideController["Wizard_Idle_Back"] = animations[4];
+        animatorOverrideController["Wizard_Idle_Front"] = animations[5];
+        animatorOverrideController["Wizard_Idle_Left"] = animations[6];
+        animatorOverrideController["Wizard_Idle_Right"] = animations[7];
+
+        animatorOverrideController["Wizard_Walk_Back"] = animations[8];
+        animatorOverrideController["Wizard_Walk_Front"] = animations[9];
+        animatorOverrideController["Wizard_Walk_Left"] = animations[10];
+        animatorOverrideController["Wizard_Walk_Right"] = animations[11];
+    }
+
+    public void Dequip()
+    {
+        animatorOverrideController["Wizard_Attack_Back"] = null;
+        animatorOverrideController["Wizard_Attack_Front"] = null;
+        animatorOverrideController["Wizard_Attack_Left"] = null;
+        animatorOverrideController["Wizard_Attack_Right"] = null;
+
+        animatorOverrideController["Wizard_Idle_Back"] = null;
+        animatorOverrideController["Wizard_Idle_Front"] = null;
+        animatorOverrideController["Wizard_Idle_Left"] = null;
+        animatorOverrideController["Wizard_Idle_Right"] = null;
+
+        animatorOverrideController["Wizard_Walk_Back"] = null;
+        animatorOverrideController["Wizard_Walk_Front"] = null;
+        animatorOverrideController["Wizard_Walk_Left"] = null;
+        animatorOverrideController["Wizard_Walk_Right"] = null;
+
+        Color c = spriteRenderer.color;
+        c.a = 0;
+        spriteRenderer.color = c;
+    }
+}

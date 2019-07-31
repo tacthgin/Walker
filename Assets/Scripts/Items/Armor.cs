@@ -19,7 +19,12 @@ public class Armor : Item
     [SerializeField]
     private int stamina = 0;
 
+    [SerializeField]
+    private AnimationClip[] animationClips = null;
+
     public ArmorType MyArmorType { get => armorType; }
+
+    public AnimationClip[] MyAnimationClips { get => animationClips; }
 
     public override string GetDescription()
     {

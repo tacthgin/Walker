@@ -23,7 +23,7 @@ public class CharacterPanel : MonoBehaviour
     private CanvasGroup canvasGroup = null;
 
     [SerializeField]
-    private CharButton[] charButtons;
+    private CharButton[] charButtons = null;
 
     public CharButton MySelectedButton { get; set; }
 

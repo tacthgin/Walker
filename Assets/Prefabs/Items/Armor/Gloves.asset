@@ -20,3 +20,4 @@ MonoBehaviour:
   intellect: 3
   strength: 7
   stamina: 20
+  animationClips: []
