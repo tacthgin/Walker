@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CharButton : MonoBehaviour, IPointerClickHandler
+public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     private ArmorType armorType = ArmorType.Head;
@@ -53,5 +53,18 @@ public class CharButton : MonoBehaviour, IPointerClickHandler
         {
             HandScript.MyInstance.Drop();
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (equippedArmor != null)
+        {
+            UIManager.MyInstance.ShowTooltip(Vector2.zero, transform.position, equippedArmor);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UIManager.MyInstance.HideTooltip();
     }
 }

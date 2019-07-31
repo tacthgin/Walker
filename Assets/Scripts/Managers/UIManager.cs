@@ -143,9 +143,10 @@ public class UIManager : MonoBehaviour
         }
     } 
 
-    public void ShowTooltip(Vector3 position, IDescribable description)
+    public void ShowTooltip(Vector2 pivot, Vector3 position, IDescribable description)
     {
         tooltip.SetActive(true);
+        (tooltip.transform as RectTransform).pivot = pivot;
         tooltip.transform.position = position;
         tooltipText.text = description.GetDescription();
     }
