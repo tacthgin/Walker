@@ -25,6 +25,8 @@ public class CharacterPanel : MonoBehaviour
     [SerializeField]
     private CharButton[] charButtons;
 
+    public CharButton MySelectedButton { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {

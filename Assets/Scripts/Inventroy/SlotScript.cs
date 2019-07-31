@@ -109,11 +109,21 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
             if (InventotyScript.MyInstance.FromSlot == null && !IsEmpty)
             {
                 //快捷栏的背包
-                if (HandScript.MyInstance.MyMoveable != null && HandScript.MyInstance.MyMoveable is Bag)
+                if (HandScript.MyInstance.MyMoveable != null)
                 {
-                    if (MyItem is Bag)
+                    if (HandScript.MyInstance.MyMoveable is Bag)
                     {
-                        InventotyScript.MyInstance.SwapBags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                        if (MyItem is Bag)
+                        {
+                            InventotyScript.MyInstance.SwapBags(HandScript.MyInstance.MyMoveable as Bag, MyItem as Bag);
+                        }
+                    }else if (HandScript.MyInstance.MyMoveable is Armor)
+                    {
+                        if (MyItem is Armor && (MyItem as Armor).MyArmorType == (HandScript.MyInstance.MyMoveable as Armor).MyArmorType)
+                        { 
+                            (MyItem as Armor).Equip();
+                            HandScript.MyInstance.Drop();
+                        }
                     }
                 }else
                 {
@@ -121,15 +131,24 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
                     InventotyScript.MyInstance.FromSlot = this;
                 }
             }
-            else if (InventotyScript.MyInstance.FromSlot == null && IsEmpty && (HandScript.MyInstance.MyMoveable is Bag))
+            else if (InventotyScript.MyInstance.FromSlot == null && IsEmpty)
             {
-                Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
-
-                if (bag.MyBagScript != MyBag && InventotyScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                if (HandScript.MyInstance.MyMoveable is Bag)
                 {
-                    AddItem(bag);
-                    bag.MyBagButton.RemoveBag();
+                    Bag bag = (Bag)HandScript.MyInstance.MyMoveable;
+
+                    if (bag.MyBagScript != MyBag && InventotyScript.MyInstance.MyEmptySlotCount - bag.Slots > 0)
+                    {
+                        AddItem(bag);
+                        bag.MyBagButton.RemoveBag();
+                        HandScript.MyInstance.Drop();
+                    }
+                }else if (HandScript.MyInstance.MyMoveable is Armor)
+                {
+                    Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
+                    AddItem(armor);
                     HandScript.MyInstance.Drop();
+                    CharacterPanel.MyInstance.MySelectedButton.DequipArmor();
                 }
             }
             else if (InventotyScript.MyInstance.FromSlot != null)
@@ -142,7 +161,7 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
             }
         }
 
-        if (eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right && HandScript.MyInstance.MyMoveable == null)
         {
             //右键使用物品
             UseItem();

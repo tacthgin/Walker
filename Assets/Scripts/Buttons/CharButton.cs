@@ -25,7 +25,13 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
                 if (tmp.MyArmorType == armorType)
                 {
                     EquipArmor(tmp);
+                    UIManager.MyInstance.RefreshTooltip(tmp);
                 }
+            }else if (HandScript.MyInstance.MyMoveable == null && equippedArmor != null)
+            {
+                HandScript.MyInstance.TakeMoveable(equippedArmor);
+                icon.color = Color.gray;
+                CharacterPanel.MyInstance.MySelectedButton = this;
             }
         }
     }
@@ -47,12 +53,20 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
         icon.enabled = true;
         icon.sprite = armor.MyIcon;
+        icon.color = Color.white;
         equippedArmor = armor;
 
         if (HandScript.MyInstance.MyMoveable == (armor as IMoveable))
         {
             HandScript.MyInstance.Drop();
         }
+    }
+
+    public void DequipArmor()
+    {
+        icon.enabled = false;
+        icon.color = Color.white;
+        equippedArmor = null;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
