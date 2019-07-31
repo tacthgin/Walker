@@ -1,1 +1,2 @@
-# Walker
+# Wizard
+A rpg game
