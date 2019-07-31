@@ -42,9 +42,12 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
 
         if (equippedArmor != null)
         {
-            //替换装备，也替换提示框
-            armor.MySlot.AddItem(equippedArmor);
-            UIManager.MyInstance.RefreshTooltip(equippedArmor);
+            if (equippedArmor != armor)
+            {
+                //替换装备，也替换提示框
+                armor.MySlot.AddItem(equippedArmor);
+                UIManager.MyInstance.RefreshTooltip(equippedArmor);
+            }
         }else
         {
             //装备的时候隐藏提示框
