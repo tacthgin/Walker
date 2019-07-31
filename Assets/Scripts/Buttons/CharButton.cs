@@ -14,6 +14,9 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
     [SerializeField]
     private Image icon = null;
 
+    [SerializeField]
+    private GearSocket gearSocket = null;
+
     public void OnPointerClick(PointerEventData eventData)
     {
         if (eventData.button == PointerEventData.InputButton.Left)
@@ -63,12 +66,23 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         {
             HandScript.MyInstance.Drop();
         }
+
+        if (gearSocket != null && equippedArmor.MyAnimationClips != null)
+        {
+            gearSocket.Equip(equippedArmor.MyAnimationClips);
+        }
     }
 
     public void DequipArmor()
     {
         icon.enabled = false;
         icon.color = Color.white;
+        
+        if (gearSocket != null && equippedArmor.MyAnimationClips != null)
+        {
+            gearSocket.Dequip();
+        }
+
         equippedArmor = null;
     }
 

@@ -43,6 +43,9 @@ public class Player : Character
 
     private Vector3 min, max;
 
+    [SerializeField]
+    private GearSocket[] gearSockets = null;
+
     protected override void Start()
     {
         mana.Initialize(initMana, initMana);
@@ -129,6 +132,11 @@ public class Player : Character
         IsAttacking = true;
         MyAnimator.SetBool("attack", IsAttacking);
 
+        foreach (GearSocket gearSocket in gearSockets)
+        {
+            gearSocket.MyAnimator.SetBool("attack", IsAttacking);
+        }
+
         yield return new WaitForSeconds(newSpell.MyCastTime);
 
         if (currentTarget != null && InLineOfSight())
@@ -182,6 +190,29 @@ public class Player : Character
         {
             StopCoroutine(attackRoutine);
             attackRoutine = null;
+        }
+    }
+
+    public override void HandleLayers()
+    {
+        base.HandleLayers();
+
+        if (IsMoving)
+        {
+            foreach (GearSocket gearSocket in gearSockets)
+            {
+                gearSocket.SetXAndY(Direction.x, Direction.y);
+            }
+        }
+    }
+
+    public override void ActivateLayer(string layerName)
+    {
+        base.ActivateLayer(layerName);
+
+        foreach (GearSocket gearSocket in gearSockets)
+        {
+            gearSocket.ActivateLayer(layerName);
         }
     }
 }

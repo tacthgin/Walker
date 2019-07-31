@@ -38,6 +38,22 @@ public class GearSocket : MonoBehaviour
         
     }
 
+    public void SetXAndY(float x, float y)
+    {
+        MyAnimator.SetFloat("x", x);
+        MyAnimator.SetFloat("y", y);
+    }
+
+    public void ActivateLayer(string layerName)
+    {
+        for (int i = 0; i < MyAnimator.layerCount; i++)
+        {
+            MyAnimator.SetLayerWeight(i, 0);
+        }
+
+        MyAnimator.SetLayerWeight(MyAnimator.GetLayerIndex(layerName), 1);
+    }
+
     public void Equip(AnimationClip[] animations)
     {
         spriteRenderer.color = Color.white;

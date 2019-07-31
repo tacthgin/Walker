@@ -85,31 +85,31 @@ public abstract class Character : MonoBehaviour
         myRigidbody.velocity = Direction.normalized * Speed;
     }
 
-    public void HandleLayers()
+    public virtual void HandleLayers()
     {
         if (IsAlive)
         {
             if (IsMoving)
             {
-                activateLayer("WalkLayer");
+                ActivateLayer("WalkLayer");
                 MyAnimator.SetFloat("x", Direction.x);
                 MyAnimator.SetFloat("y", Direction.y);
             }
             else if (IsAttacking)
             {
-                activateLayer("AttackLayer");
+                ActivateLayer("AttackLayer");
             }
             else
             {
-                activateLayer("IdleLayer");
+                ActivateLayer("IdleLayer");
             }
         }else
         {
-            activateLayer("DeathLayer");
+            ActivateLayer("DeathLayer");
         }
     }
 
-    public void activateLayer(string layerName)
+    public virtual void ActivateLayer(string layerName)
     {
         for (int i = 0; i < MyAnimator.layerCount; i++)
         {
