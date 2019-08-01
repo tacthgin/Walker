@@ -70,14 +70,16 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         if (useable is Item)
         {
             useables = InventotyScript.MyInstance.GetUseables(useable);
-            MyCount = useables.Count;
             InventotyScript.MyInstance.FromSlot.MyIcon.color = Color.white;
             InventotyScript.MyInstance.FromSlot = null;
         }
         else
         {
+            useables.Clear();
             MyUseable = useable;
         }
+
+        MyCount = useables.Count;
 
         UpdateVisual();
     }
@@ -90,6 +92,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         if (MyCount > 1)
         {
             UIManager.MyInstance.UpdateStackSize(this);
+        }else if (MyUseable is Spell)
+        {
+            UIManager.MyInstance.ClearStackCount(this);
         }
     }
 
