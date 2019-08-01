@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Clickable"));
 
-            if (hit.collider != null && hit.collider.tag == "Enemy")
+            if (hit.collider != null && (hit.collider.tag == "Enemy" || hit.collider.tag == "Interactable"))
             {
                 player.Interact();
             }
