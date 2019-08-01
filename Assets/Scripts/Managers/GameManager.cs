@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
             if (hit.collider != null && hit.collider.tag == "Enemy")
             {
-                hit.collider.GetComponent<Npc>().Interact();
+                player.Interact();
             }
         }
     }

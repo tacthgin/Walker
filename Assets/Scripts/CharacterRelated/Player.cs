@@ -41,6 +41,8 @@ public class Player : Character
     [SerializeField]
     private Block[] blocks = null;
 
+    private IInteractable interactable = null;
+
     private Vector3 min, max;
 
     [SerializeField]
@@ -213,6 +215,34 @@ public class Player : Character
         foreach (GearSocket gearSocket in gearSockets)
         {
             gearSocket.ActivateLayer(layerName);
+        }
+    }
+
+    public void Interact()
+    {
+        if (interactable != null)
+        {
+            interactable.Interact();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            interactable = collision.GetComponent<IInteractable>();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            if (interactable != null)
+            {
+                interactable.StopInteract();
+                interactable = null;
+            }
         }
     }
 }

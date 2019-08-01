@@ -5,7 +5,7 @@ using UnityEngine;
 public delegate void HealthChanged(float health);
 public delegate void CharacterRemoved();
 
-public class Npc : Character
+public class Npc : Character, IInteractable
 {
     public event HealthChanged healthChanged;
 
@@ -44,5 +44,10 @@ public class Npc : Character
     public virtual void Interact()
     {
         Debug.Log("this will open a dialog with the NPC");
+    }
+
+    public virtual void StopInteract()
+    {
+        Debug.Log("end interactable  with the NPC");
     }
 }
