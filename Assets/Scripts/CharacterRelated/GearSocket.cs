@@ -6,7 +6,7 @@ public class GearSocket : MonoBehaviour
 {
     public Animator MyAnimator { get; set; }
 
-    private SpriteRenderer spriteRenderer;
+    protected SpriteRenderer spriteRenderer;
 
     private Animator parentAnimatior;
 
@@ -26,19 +26,7 @@ public class GearSocket : MonoBehaviour
         MyAnimator.runtimeAnimatorController = animatorOverrideController;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void SetXAndY(float x, float y)
+    public virtual void SetXAndY(float x, float y)
     {
         MyAnimator.SetFloat("x", x);
         MyAnimator.SetFloat("y", y);
