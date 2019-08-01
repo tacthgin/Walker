@@ -8,16 +8,14 @@ public class Bag : Item, IUseable
     [SerializeField]
     private GameObject bagPrefab = null;
 
+    [SerializeField]
+    private int slots = 0;
+
     public BagScript MyBagScript { get; set; }
 
     public BagButton MyBagButton { get; set; }
 
-    public int Slots { get; private set; }
-
-    public void Initialize(int slots)
-    {
-        Slots = slots;
-    }
+    public int MySlots { get => slots; }
 
     public void Use()
     {
@@ -25,7 +23,7 @@ public class Bag : Item, IUseable
         {
             Remove();
             MyBagScript = Instantiate(bagPrefab, InventotyScript.MyInstance.transform).GetComponent<BagScript>();
-            MyBagScript.AddSlots(Slots);
+            MyBagScript.AddSlots(slots);
 
             if (MyBagButton == null)
             {
@@ -39,6 +37,6 @@ public class Bag : Item, IUseable
 
     public override string GetDescription()
     {
-        return base.GetDescription() + string.Format("\n<color=#ffffffff>{0} slot bag</color>", Slots);
+        return base.GetDescription() + string.Format("\n<color=#ffffffff>{0} slot bag</color>", slots);
     }
 }

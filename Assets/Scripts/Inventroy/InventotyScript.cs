@@ -103,6 +103,7 @@ public class InventotyScript : MonoBehaviour
             {
                 bagButton.MyBag = bag;
                 bag.MyBagButton = bagButton;
+                bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
                 bags.Add(bag);
                 break;
             }
@@ -113,6 +114,7 @@ public class InventotyScript : MonoBehaviour
     {
         bags.Add(bag);
         bagButton.MyBag = bag;
+        bag.MyBagScript.transform.SetSiblingIndex(bagButton.MyBagIndex);
     }
 
     public void RemoveBag(Bag bag)
@@ -123,7 +125,7 @@ public class InventotyScript : MonoBehaviour
 
     public void SwapBags(Bag oldBag, Bag newBag)
     {
-        int newSlotCount = (MyTotalSlotCount - oldBag.Slots) + newBag.Slots;
+        int newSlotCount = (MyTotalSlotCount - oldBag.MySlots) + newBag.MySlots;
 
         if (newSlotCount - MyFullSlotCount >= 0)
         {
@@ -172,21 +174,18 @@ public class InventotyScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.J))
         {
             Bag bag = (Bag)Instantiate(items[0]);
-            bag.Initialize(16);
             bag.Use();
         }
 
         if (Input.GetKeyDown(KeyCode.G))
         {
             Bag bag = (Bag)Instantiate(items[0]);
-            bag.Initialize(8);
             AddItem(bag);
         }
 
         if (Input.GetKeyDown(KeyCode.K))
         {
             Bag bag = (Bag)Instantiate(items[0]);
-            bag.Initialize(16);
             AddItem(bag);
         }
 

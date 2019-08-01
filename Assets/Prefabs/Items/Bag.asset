@@ -18,3 +18,4 @@ MonoBehaviour:
   quality: 1
   bagPrefab: {fileID: 6168793613211470023, guid: 375abb3876ceb444ba46e2cf3fa7e067,
     type: 3}
+  slots: 16

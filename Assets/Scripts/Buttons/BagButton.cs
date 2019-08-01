@@ -11,6 +11,9 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     private Sprite full = null, empty = null;
 
+    [SerializeField]
+    private int bagIndex = 0;
+
     public Bag MyBag {
         get => bag;
         set {
@@ -25,6 +28,8 @@ public class BagButton : MonoBehaviour, IPointerClickHandler
             bag = value;
         }
     }
+
+    public int MyBagIndex { get => bagIndex; }
 
     public void OnPointerClick(PointerEventData eventData)
     {

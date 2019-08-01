@@ -33,11 +33,14 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         return string.Format("<color={0}>{1}</color>", QualityColor.MyColors[quality], title);
     }
 
+    public CharButton MyCharButton { get; set; }
+
     public void Remove()
     {
         if (MySlot != null)
         {
             MySlot.RemoveItem();
+            MySlot = null;
         }
     }
 }

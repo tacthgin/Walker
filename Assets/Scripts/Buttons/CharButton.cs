@@ -61,6 +61,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
         icon.sprite = armor.MyIcon;
         icon.color = Color.white;
         equippedArmor = armor;
+        equippedArmor.MyCharButton = this;
 
         if (HandScript.MyInstance.MyMoveable == (armor as IMoveable))
         {
@@ -83,6 +84,7 @@ public class CharButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHand
             gearSocket.Dequip();
         }
 
+        equippedArmor.MyCharButton = null;
         equippedArmor = null;
     }
 
