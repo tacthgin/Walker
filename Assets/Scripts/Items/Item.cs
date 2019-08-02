@@ -18,6 +18,8 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     [SerializeField]
     private Quality quality = Quality.Common;
 
+    private CharButton charButton;
+
     public Sprite MyIcon { get => icon; }
 
     public int MyStackSize { get => stackSize; }
@@ -33,14 +35,20 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
         return string.Format("<color={0}>{1}</color>", QualityColor.MyColors[quality], title);
     }
 
-    public CharButton MyCharButton { get; set; }
+    public CharButton MyCharButton {
+        get { return charButton;  }
+
+        set {
+            MySlot = null;
+            charButton = value;
+        }
+    }
 
     public void Remove()
     {
         if (MySlot != null)
         {
             MySlot.RemoveItem();
-            MySlot = null;
         }
     }
 }
