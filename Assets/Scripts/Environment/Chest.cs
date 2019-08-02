@@ -13,12 +13,12 @@ public class Chest : MonoBehaviour, IInteractable
     private bool isOpen = false;
 
     [SerializeField]
-    private CanvasGroup canvasGroup;
+    private CanvasGroup canvasGroup = null;
 
     private List<Item> items = null;
 
     [SerializeField]
-    private BagScript bag;
+    private BagScript bag = null;
 
     public void Interact()
     {
