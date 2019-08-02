@@ -12,6 +12,14 @@ public class Chest : MonoBehaviour, IInteractable
 
     private bool isOpen = false;
 
+    [SerializeField]
+    private CanvasGroup canvasGroup;
+
+    private List<Item> items = null;
+
+    [SerializeField]
+    private BagScript bag;
+
     public void Interact()
     {
         if (isOpen)
@@ -20,14 +28,39 @@ public class Chest : MonoBehaviour, IInteractable
         }
         else
         {
+            AddItems();
             isOpen = true;
             spriteRenderer.sprite = openSprite;
+
+            canvasGroup.alpha = 1;
+            canvasGroup.blocksRaycasts = true;
         }
     }
 
     public void StopInteract()
     {
+        StoreItems();
+        bag.Clear();
         isOpen = false;
         spriteRenderer.sprite = closedSprite;
+
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
+    }
+
+    public void AddItems()
+    {
+        if (items != null)
+        {
+            foreach (Item item in items)
+            {
+                item.MySlot.AddItem(item);
+            }
+        }
+    }
+
+    public void StoreItems()
+    {
+        items = bag.GetItems();
     }
 }

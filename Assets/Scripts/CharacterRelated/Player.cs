@@ -230,6 +230,7 @@ public class Player : Character
     {
         if (collision.tag == "Enemy" || collision.tag == "Interactable")
         {
+            Debug.Log(collision.gameObject.name + " OnTriggerEnter2D");
             interactable = collision.GetComponent<IInteractable>();
         }
     }
@@ -240,6 +241,7 @@ public class Player : Character
         {
             if (interactable != null)
             {
+                Debug.Log(collision.gameObject.name + " OnTriggerExit2D");
                 interactable.StopInteract();
                 interactable = null;
             }

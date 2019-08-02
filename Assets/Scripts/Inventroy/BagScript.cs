@@ -85,4 +85,12 @@ public class BagScript : MonoBehaviour
 
         canvasGroup.blocksRaycasts = !canvasGroup.blocksRaycasts;
     }
+
+    public void Clear()
+    {
+        foreach (SlotScript slot in MySlots)
+        {
+            slot.Clear();
+        } 
+    }
 }
