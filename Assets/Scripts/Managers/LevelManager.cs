@@ -75,7 +75,7 @@ public class LevelManager : MonoBehaviour
     }
 }
 
-[Serializable]
+[System.Serializable]
 public class MapElement
 {
     [SerializeField]

@@ -1,7 +1,6 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
-[Serializable]
+[System.Serializable]
 public class Spell : IUseable, IMoveable, IDescribable
 {
     [SerializeField]
