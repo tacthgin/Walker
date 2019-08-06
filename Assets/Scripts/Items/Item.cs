@@ -18,6 +18,9 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     [SerializeField]
     private Quality quality = Quality.Common;
 
+    [SerializeField]
+    private int price = 0;
+
     private CharButton charButton;
 
     public Sprite MyIcon { get => icon; }
@@ -29,6 +32,8 @@ public abstract class Item : ScriptableObject, IMoveable, IDescribable
     public Quality MyQuality { get => quality; }
 
     public string MyTitle { get => title; }
+
+    public int MyPrice { get => price; }
 
     public virtual string GetDescription()
     {

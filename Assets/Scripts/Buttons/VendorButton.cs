@@ -21,7 +21,8 @@ public class VendorButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         gameObject.SetActive(true);
 
         icon.sprite = vendorItem.MyItem.MyIcon;
-        title.text = vendorItem.MyItem.MyTitle;
+        title.text = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[vendorItem.MyItem.MyQuality], vendorItem.MyItem.MyTitle);
+        price.text = vendorItem.MyItem.MyPrice.ToString();
 
         if (!vendorItem.MyUnlimited)
         {
