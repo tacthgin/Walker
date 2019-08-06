@@ -18,28 +18,23 @@ public class VendorButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void AddItem(VendorItem vendorItem)
     {
-        gameObject.SetActive(true);
-
-        icon.sprite = vendorItem.MyItem.MyIcon;
-        title.text = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[vendorItem.MyItem.MyQuality], vendorItem.MyItem.MyTitle);
-        price.text = vendorItem.MyItem.MyPrice.ToString();
-
-        if (!vendorItem.MyUnlimited)
+        if (vendorItem.MyQuantity > 0 || (vendorItem.MyQuantity == 0 && vendorItem.MyUnlimited))
         {
-            quantity.text = vendorItem.MyQuantity.ToString();
+            icon.sprite = vendorItem.MyItem.MyIcon;
+            title.text = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[vendorItem.MyItem.MyQuality], vendorItem.MyItem.MyTitle);
+            price.text = "Price: " + vendorItem.MyItem.MyPrice.ToString();
+
+            if (!vendorItem.MyUnlimited)
+            {
+                quantity.text = vendorItem.MyQuantity.ToString();
+            }
+
+            gameObject.SetActive(true);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
