@@ -23,19 +23,25 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
 
     public int MyCount { get; private set; } = 0;
 
-    // Start is called before the first frame update
+    public Stack<IUseable> MyUseables {
+        get
+        {
+            return useables;
+        }
+
+        set
+        {
+            MyUseable = value.Peek();
+            useables = value;
+        }
+    }
+
     void Start()
     {
         MyButton = GetComponent<Button>();
         MyButton.onClick.AddListener(OnClick);
 
         InventotyScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(UpdateItemCount);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnClick()
@@ -47,9 +53,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
                 MyUseable.Use();
             }
 
-            if (useables.Count > 0)
+            if (MyUseables.Count > 0)
             {
-                useables.Peek().Use();
+                MyUseables.Peek().Use();
             }
         }
     }
@@ -69,19 +75,21 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
     {
         if (useable is Item)
         {
-            useables = InventotyScript.MyInstance.GetUseables(useable);
+            MyUseables = InventotyScript.MyInstance.GetUseables(useable);
             InventotyScript.MyInstance.FromSlot.MyIcon.color = Color.white;
             InventotyScript.MyInstance.FromSlot = null;
         }
         else
         {
-            useables.Clear();
+            MyUseables.Clear();
             MyUseable = useable;
         }
 
-        MyCount = useables.Count;
+        MyCount = MyUseables.Count;
 
         UpdateVisual();
+
+        UIManager.MyInstance.RefreshTooltip(MyUseable as IDescribable);
     }
 
     public void UpdateVisual()
@@ -100,13 +108,13 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
 
     public void UpdateItemCount(Item item)
     {
-        if (item is IUseable && useables.Count > 0)
+        if (item is IUseable && MyUseables.Count > 0)
         {
-            if (useables.Peek().GetType() == item.GetType())
+            if (MyUseables.Peek().GetType() == item.GetType())
             {
-                useables = InventotyScript.MyInstance.GetUseables(item as IUseable);
+                MyUseables = InventotyScript.MyInstance.GetUseables(item as IUseable);
 
-                MyCount = useables.Count;
+                MyCount = MyUseables.Count;
 
                 UIManager.MyInstance.UpdateStackSize(this);
             }
@@ -119,9 +127,9 @@ public class ActionButton : MonoBehaviour, IPointerClickHandler, IClickable, IPo
         if (MyUseable != null && MyUseable is IDescribable)
         {
             tmp = (IDescribable)MyUseable;
-        }else if (useables.Count > 0 && useables.Peek() is IDescribable)
+        }else if (MyUseables.Count > 0 && MyUseables.Peek() is IDescribable)
         {
-            tmp = (IDescribable)useables.Peek();
+            tmp = (IDescribable)MyUseables.Peek();
         }
 
         if (tmp != null)
