@@ -22,11 +22,19 @@ public class VendorButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         {
             icon.sprite = vendorItem.MyItem.MyIcon;
             title.text = string.Format("<color={0}>{1}</color>", QualityColor.MyColors[vendorItem.MyItem.MyQuality], vendorItem.MyItem.MyTitle);
-            price.text = "Price: " + vendorItem.MyItem.MyPrice.ToString();
+            
 
             if (!vendorItem.MyUnlimited)
             {
                 quantity.text = vendorItem.MyQuantity.ToString();
+            }
+
+            if (vendorItem.MyItem.MyPrice > 0)
+            {
+                price.text = "Price: " + vendorItem.MyItem.MyPrice.ToString();
+            }else
+            {
+                price.text = string.Empty;
             }
 
             gameObject.SetActive(true);
