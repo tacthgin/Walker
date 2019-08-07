@@ -41,14 +41,14 @@ public class Player : Character
     [SerializeField]
     private Block[] blocks = null;
 
-    private IInteractable interactable = null;
-
     private Vector3 min, max;
 
     [SerializeField]
     private GearSocket[] gearSockets = null;
 
     public int MyGold { get; set; }
+
+    public IInteractable MyInteractable { get; set; }
 
     protected override void Start()
     {
@@ -223,9 +223,9 @@ public class Player : Character
 
     public void Interact()
     {
-        if (interactable != null)
+        if (MyInteractable != null)
         {
-            interactable.Interact();
+            MyInteractable.Interact();
         }
     }
 
@@ -233,7 +233,7 @@ public class Player : Character
     {
         if (collision.tag == "Enemy" || collision.tag == "Interactable")
         {
-            interactable = collision.GetComponent<IInteractable>();
+            MyInteractable = collision.GetComponent<IInteractable>();
         }
     }
 
@@ -241,10 +241,10 @@ public class Player : Character
     {
         if (collision.tag == "Enemy" || collision.tag == "Interactable")
         {
-            if (interactable != null)
+            if (MyInteractable != null)
             {
-                interactable.StopInteract();
-                interactable = null;
+                MyInteractable.StopInteract();
+                MyInteractable = null;
             }
         }
     }

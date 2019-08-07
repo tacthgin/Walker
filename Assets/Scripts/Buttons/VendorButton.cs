@@ -31,6 +31,9 @@ public class VendorButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
             if (!vendorItem.Unlimited)
             {
                 quantity.text = vendorItem.MyQuantity.ToString();
+            }else
+            {
+                quantity.text = string.Empty;
             }
 
             if (vendorItem.MyItem.MyPrice > 0)
