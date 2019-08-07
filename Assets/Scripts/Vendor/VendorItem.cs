@@ -14,7 +14,7 @@ public class VendorItem
 
     public Item MyItem { get => item; }
 
-    public int MyQuantity { get => quantity; }
+    public int MyQuantity { get => quantity; set => quantity = value; }
 
-    public bool MyUnlimited { get => unlimited; }
+    public bool Unlimited { get => unlimited; }
 }

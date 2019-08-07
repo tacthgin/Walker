@@ -48,8 +48,11 @@ public class Player : Character
     [SerializeField]
     private GearSocket[] gearSockets = null;
 
+    public int MyGold { get; set; }
+
     protected override void Start()
     {
+        MyGold = 500;
         mana.Initialize(initMana, initMana);
         base.Start();
     }
