@@ -18,8 +18,13 @@ public class VendorWindow : MonoBehaviour
 
     private List<List<VendorItem>> pages = new List<List<VendorItem>>();
 
+    private Vendor vendor;
+
     public void CreatePages(VendorItem[] items)
     {
+        pages.Clear();
+        pageIndex = 0;
+
         List<VendorItem> page = new List<VendorItem>();
 
         for (var i = 0; i < items.Length; i++)
@@ -51,14 +56,16 @@ public class VendorWindow : MonoBehaviour
         }
     }
 
-    public void Open()
+    public void Open(Vendor vendor)
     {
+        this.vendor = vendor;
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
     }
 
     public void Close()
     {
+        vendor.IsOpen = false;
         canvasGroup.alpha = 0;
         canvasGroup.blocksRaycasts = false;
     }
