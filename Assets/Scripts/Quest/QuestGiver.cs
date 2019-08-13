@@ -13,6 +13,9 @@ public class QuestGiver : MonoBehaviour
 
     private void Awake()
     {
-        tmpLog.AcceptQuest(quests[0]);
+        foreach (Quest quest in quests)
+        {
+            tmpLog.AcceptQuest(quest);
+        }
     }
 }

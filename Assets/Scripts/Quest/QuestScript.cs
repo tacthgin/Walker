@@ -1,10 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class QuestScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Quest MyQuest { get; set; }
+    
     void Start()
     {
         
@@ -14,5 +14,16 @@ public class QuestScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void Select()
+    {
+        GetComponent<Text>().color = Color.red;
+        QuestLog.MyInstance.ShowDescription(MyQuest);
+    }
+
+    public void DeSelect()
+    {
+        GetComponent<Text>().color = Color.white;
     }
 }

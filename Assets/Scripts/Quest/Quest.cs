@@ -7,4 +7,6 @@ public class Quest
     private string title;
 
     public string MyTitle { get => title; }
+
+    public QuestScript MyQuestScrit { get; set; }
 }
