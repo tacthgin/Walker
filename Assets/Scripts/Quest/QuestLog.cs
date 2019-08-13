@@ -45,6 +45,11 @@ public class QuestLog : MonoBehaviour
 
     public void AcceptQuest(Quest quest)
     {
+        foreach (CollectObjective co in quest.MyCollectObjectives)
+        {
+            InventotyScript.MyInstance.itemCountChangedEvent += new ItemCountChanged(co.UpdateItemCount);
+        }
+
         GameObject o = Instantiate(questPrefab, questParent);
         QuestScript qs = o.GetComponent<QuestScript>();
         quest.MyQuestScrit = qs;
@@ -73,5 +78,10 @@ public class QuestLog : MonoBehaviour
         }
 
         questDescription.text = string.Format("{0}\n<size=20>{1}</size>\n\nObjectives\n<size=20>{2}</size>", quest.MyTitle, quest.MyDescription, objective);
+    }
+
+    public void UpdateSelected()
+    {
+        ShowDescription(selected);
     }
 }

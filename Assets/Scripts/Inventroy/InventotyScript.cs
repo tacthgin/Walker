@@ -90,11 +90,6 @@ public class InventotyScript : MonoBehaviour
         }
     }
 
-    private void Awake()
-    {
-       
-    }
-
     public void AddBag(Bag bag)
     {
         foreach (BagButton bagButton in bagButtons)
@@ -160,12 +155,6 @@ public class InventotyScript : MonoBehaviour
         }
 
         return PlaceInEmpty(item);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -281,6 +270,24 @@ public class InventotyScript : MonoBehaviour
         }
 
         return useables;
+    }
+
+    public int GetItemCount(string type)
+    {
+        int itemCount = 0;
+
+        foreach (Bag bag in bags)
+        {
+            foreach (SlotScript slot in bag.MyBagScript.MySlots)
+            {
+                if (!slot.IsEmpty && slot.MyItem.MyTitle == type)
+                {
+                    itemCount += slot.MyItems.Count;
+                }
+            }
+        }
+
+        return itemCount;
     }
 
     public void OnItemCountChanged(Item item)

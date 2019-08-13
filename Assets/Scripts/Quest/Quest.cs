@@ -27,14 +27,12 @@ public abstract class Objective
     [SerializeField]
     private int amount = 0;
 
-    private int currentAmount = 0;
-
     [SerializeField]
     private string type;
 
     public int MyAmount { get => amount; }
 
-    public int MyCurrentAmount { get => currentAmount; }
+    public int MyCurrentAmount { get; set; }
 
     public string MyType { get => type; }
 }
@@ -42,5 +40,12 @@ public abstract class Objective
 [System.Serializable]
 public class CollectObjective : Objective
 {
-  
+    public void UpdateItemCount(Item item)
+    {
+        if (MyType.ToLower() == item.MyTitle.ToLower())
+        {
+            MyCurrentAmount = InventotyScript.MyInstance.GetItemCount(item.MyTitle);
+            QuestLog.MyInstance.UpdateSelected();
+        }
+    }
 }
