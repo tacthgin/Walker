@@ -61,10 +61,17 @@ public class QuestLog : MonoBehaviour
             selected.MyQuestScrit.DeSelect();
         }
 
+        string objective = string.Empty;
+
         selected = quest;
 
         string title = quest.MyTitle;
 
-        questDescription.text = string.Format("<b>{0}</b>\n{1}", quest.MyTitle, "hello world");
+        foreach (Objective obj in quest.MyCollectObjectives)
+        {
+            objective += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+        }
+
+        questDescription.text = string.Format("{0}\n<size=20>{1}</size>\n\nObjectives\n<size=20>{2}</size>", quest.MyTitle, quest.MyDescription, objective);
     }
 }
