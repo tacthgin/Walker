@@ -146,9 +146,9 @@ public class SlotScript : MonoBehaviour, IPointerClickHandler, IClickable, IPoin
                 }else if (HandScript.MyInstance.MyMoveable is Armor)
                 {
                     Armor armor = (Armor)HandScript.MyInstance.MyMoveable;
+                    CharacterPanel.MyInstance.MySelectedButton.DequipArmor();
                     AddItem(armor);
                     HandScript.MyInstance.Drop();
-                    CharacterPanel.MyInstance.MySelectedButton.DequipArmor();
                 }
             }
             else if (InventotyScript.MyInstance.FromSlot != null)

@@ -4,10 +4,10 @@
 public class Quest
 {
     [SerializeField]
-    private string title;
+    private string title = string.Empty;
 
     [SerializeField]
-    private string description;
+    private string description = string.Empty;
 
     [SerializeField]
     private CollectObjective[] collectObjectives = null;
@@ -28,7 +28,7 @@ public abstract class Objective
     private int amount = 0;
 
     [SerializeField]
-    private string type;
+    private string type = string.Empty;
 
     public int MyAmount { get => amount; }
 
@@ -45,7 +45,7 @@ public class CollectObjective : Objective
         if (MyType.ToLower() == item.MyTitle.ToLower())
         {
             MyCurrentAmount = InventotyScript.MyInstance.GetItemCount(item.MyTitle);
-            QuestLog.MyInstance.UpdateSelected();
+            Questlog.MyInstance.UpdateSelected();
         }
     }
 }

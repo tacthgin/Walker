@@ -54,7 +54,7 @@ public class VendorButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (Player.MyInstance.MyGold >= vendorItem.MyItem.MyPrice && InventotyScript.MyInstance.AddItem(vendorItem.MyItem))
+        if (Player.MyInstance.MyGold >= vendorItem.MyItem.MyPrice && InventotyScript.MyInstance.AddItem(Instantiate(vendorItem.MyItem)))
         {
             SellItem();
         }

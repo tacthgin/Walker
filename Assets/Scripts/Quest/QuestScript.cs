@@ -19,7 +19,7 @@ public class QuestScript : MonoBehaviour
     public void Select()
     {
         GetComponent<Text>().color = Color.red;
-        QuestLog.MyInstance.ShowDescription(MyQuest);
+        Questlog.MyInstance.ShowDescription(MyQuest);
     }
 
     public void DeSelect()

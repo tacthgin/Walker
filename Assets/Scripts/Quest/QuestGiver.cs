@@ -5,11 +5,11 @@ using UnityEngine;
 public class QuestGiver : MonoBehaviour
 {
     [SerializeField]
-    private Quest[] quests;
+    private Quest[] quests = null;
 
     //debuging
     [SerializeField]
-    private QuestLog tmpLog;
+    private Questlog tmpLog = null;
 
     private void Awake()
     {
