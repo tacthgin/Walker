@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Questlog : MonoBehaviour
@@ -27,19 +28,9 @@ public class Questlog : MonoBehaviour
     [SerializeField]
     private Text questDescription = null;
 
+    private List<QuestScript> questScripts = new List<QuestScript>();
+
     private Quest selected = null;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     public void AcceptQuest(Quest quest)
     {
@@ -55,6 +46,7 @@ public class Questlog : MonoBehaviour
         qs.MyQuest.MyQuestScrit = qs;
 
         o.GetComponent<Text>().text = quest.MyTitle;
+        questScripts.Add(qs);
     }
 
     public void ShowDescription(Quest quest)
@@ -84,5 +76,13 @@ public class Questlog : MonoBehaviour
     public void UpdateSelected()
     {
         ShowDescription(selected);
+    }
+
+    public void CheckCompletion()
+    {
+        foreach (QuestScript qs in questScripts)
+        {
+            qs.IsComplete();
+        }
     }
 }

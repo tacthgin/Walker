@@ -227,6 +227,7 @@ public class InventotyScript : MonoBehaviour
         {
             if (bag.MyBagScript.AddItem(item))
             {
+                OnItemCountChanged(item);
                 return true;
             }
         }

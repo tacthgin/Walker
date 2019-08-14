@@ -19,6 +19,22 @@ public class Quest
     public string MyDescription { get => description; }
 
     public CollectObjective[] MyCollectObjectives { get => collectObjectives; }
+
+    public bool IsComplete
+    {
+        get
+        {
+            foreach (Objective o in collectObjectives)
+            {
+                if (!o.IsComplete)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
 }
 
 [System.Serializable]
@@ -35,6 +51,14 @@ public abstract class Objective
     public int MyCurrentAmount { get; set; }
 
     public string MyType { get => type; }
+
+    public bool IsComplete
+    {
+        get
+        {
+            return MyCurrentAmount >= MyAmount;
+        }
+    }
 }
 
 [System.Serializable]
@@ -46,6 +70,7 @@ public class CollectObjective : Objective
         {
             MyCurrentAmount = InventotyScript.MyInstance.GetItemCount(item.MyTitle);
             Questlog.MyInstance.UpdateSelected();
+            Questlog.MyInstance.CheckCompletion();
         }
     }
 }
