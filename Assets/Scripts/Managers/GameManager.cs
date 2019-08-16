@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Player player = null;
 
-    private Npc currentTarget;
+    private Enemy currentTarget;
 
     void Update()
     {
@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
                     currentTarget.DeSelect();
                 }
 
-                currentTarget = hit.collider.GetComponent<Npc>();
+                currentTarget = hit.collider.GetComponent<Enemy>();
                 player.MyTarget = currentTarget.Select();
 
                 UIManager.MyInstance.showTargetFrame(currentTarget);

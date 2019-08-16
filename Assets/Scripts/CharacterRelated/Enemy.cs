@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : Npc
+public delegate void HealthChanged(float health);
+public delegate void CharacterRemoved();
+
+public class Enemy : Character, IInteractable
 {
+    public event HealthChanged healthChanged;
+
+    public event CharacterRemoved characterRemoved;
+
     [SerializeField]
     private CanvasGroup healthGroup = null;
+
+    [SerializeField]
+    private Sprite portrait = null;
 
     private IState currentState = null;
 
@@ -21,6 +31,11 @@ public class Enemy : Npc
     public Vector3 MyStartPosition { get; set; }
 
     private LootTable lootTable;
+
+    public Sprite MyPortrait
+    {
+        get { return portrait; }
+    }
 
     public bool InRange
     {
@@ -54,16 +69,18 @@ public class Enemy : Npc
         base.Update();
     }
 
-    public override Transform Select()
+    public Transform Select()
     {
         healthGroup.alpha = 1;
-        return base.Select();
+        return hitBox;
     }
 
-    public override void DeSelect()
+    public void DeSelect()
     {
         healthGroup.alpha = 0;
-        base.DeSelect();
+
+        healthChanged -= new HealthChanged(UIManager.MyInstance.UpdateTargetFrame);
+        characterRemoved -= new CharacterRemoved(UIManager.MyInstance.hideTargetFrame);
     }
 
     public override void TakeDamage(float damage, Transform source)
@@ -108,7 +125,7 @@ public class Enemy : Npc
         onHealthChanged(health.MyCurrentValue);
     }
 
-    public override void Interact()
+    public void Interact()
     {
         if (!IsAlive)
         {
@@ -116,8 +133,19 @@ public class Enemy : Npc
         }
     }
 
-    public override void StopInteract()
+    public void StopInteract()
     {
         LootWindow.MyInstance.Close();
+    }
+
+    public void onHealthChanged(float health)
+    {
+        healthChanged?.Invoke(health);
+    }
+
+    public void onCharacterRemoved()
+    {
+        characterRemoved?.Invoke();
+        Destroy(gameObject);
     }
 }
