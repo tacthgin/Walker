@@ -1,18 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-
-
-public class Npc : Character, IInteractable
+public class Npc : MonoBehaviour, IInteractable
 {
+    [SerializeField]
+    private Window window = null;
+
+    public bool IsInteracting { get; set; }
+
     public virtual void Interact()
     {
-        Debug.Log("this will open a dialog with the NPC");
+        if (!IsInteracting)
+        {
+            IsInteracting = true;
+            window.Open(this);
+        }
     }
 
     public virtual void StopInteract()
     {
-        Debug.Log("end interactable  with the NPC");
+        if (IsInteracting)
+        {
+            IsInteracting = false;
+            window.Close();
+        }
     }
 }

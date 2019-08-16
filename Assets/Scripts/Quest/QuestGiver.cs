@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuestGiver : MonoBehaviour
+public class QuestGiver : Npc
 {
     [SerializeField]
     private Quest[] quests = null;
