@@ -11,6 +11,8 @@ public class QuestGiver : Npc
     [SerializeField]
     private Questlog tmpLog = null;
 
+    public Quest[] MyQuests { get => quests;}
+
     private void Awake()
     {
         foreach (Quest quest in quests)
