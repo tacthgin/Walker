@@ -21,13 +21,13 @@ public class QuestGiverWindow : Window
     private QuestGiver questGiver;
 
     [SerializeField]
-    private GameObject backBtn, accpetBtn;
+    private GameObject backBtn = null, accpetBtn = null, questDescription = null;
 
     [SerializeField]
-    private GameObject questPrefab;
+    private GameObject questPrefab = null;
 
     [SerializeField]
-    private Transform questArea;
+    private Transform questArea = null;
 
     public void ShowQuests(QuestGiver questGiver)
     {
@@ -51,26 +51,16 @@ public class QuestGiverWindow : Window
     {
         backBtn.SetActive(true);
         accpetBtn.SetActive(true);
-        /*
-        if (quest != null)
+        questArea.gameObject.SetActive(false);
+        questDescription.SetActive(true);
+
+        string objective = "\nObjectives\n";
+
+        foreach (Objective obj in quest.MyCollectObjectives)
         {
-            if (selected != null && selected != quest)
-            {
-                selected.MyQuestScrit.DeSelect();
-            }
+            objective += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
+        }
 
-            string objective = string.Empty;
-
-            selected = quest;
-
-            string title = quest.MyTitle;
-
-            foreach (Objective obj in quest.MyCollectObjectives)
-            {
-                objective += obj.MyType + ": " + obj.MyCurrentAmount + "/" + obj.MyAmount + "\n";
-            }
-
-            questDescription.text = string.Format("{0}\n<size=20>{1}</size>\n\nObjectives\n<size=20>{2}</size>", quest.MyTitle, quest.MyDescription, objective);
-        }*/
+        questDescription.GetComponent<Text>().text = string.Format("{0}\n<size=20>{1}</size>\n<size=20>{2}</size>", quest.MyTitle, quest.MyDescription, objective);
     }
 }
